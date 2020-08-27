@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>盒子模型</title>
+</head>
+<style>
+* { margin: 0; padding: 0;}
+#parent { margin: 10px; padding: 4px; border: 2px solid #000; }
+#child1 { width: 50px; height: 50px;}
+#child2 { width: 100px; height: 100px; margin: 10px; padding: 5px; border: 3px solid #0cc;}
+</style>
+<body>
+  
+<div id="parent">
+  <div id="child1"></div>
+  <div id="child2"></div>
+</div>
+
+
+<script>
+let p = document.getElementById('parent')
+let c1 = document.getElementById('child1')
+let c2 = document.getElementById('child2')
+
+console.log('c1 - offsetWidth', c1.offsetWidth)
+console.log('c1 - offsetHeight', c1.offsetHeight)
+console.log('c1 - offsetTop', c1.offsetTop)
+console.log('c1 - offsetLeft', c1.offsetLeft)
+
+console.log('c2 - offsetWidth', c2.offsetWidth)
+console.log('c2 - offsetHeight', c2.offsetHeight)
+console.log('c2 - offsetTop', c2.offsetTop)
+console.log('c2 - offsetLeft', c2.offsetLeft)
+console.log('c2 - offsetParent', c2.offsetParent)
+
+
+
+</script>
+
+</body>
+</html>
