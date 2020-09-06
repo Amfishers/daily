@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>斐波拉契数列</title>
+</head>
+<body>
+<h1>斐波拉契数列</h1>
+
+什么是斐波拉契数列，就是 1，1，2，3，5，8，13... 这样，观察数列可得，除了第一项，第二项，第三项是前一项和前一项的前一项之和
+也就是 f(n) = f(n-1) + f(n-2)
+
+<pre>
+  function fibo(n) {
+    if(n === 0 || n === 1) {
+      return n
+    }
+  
+    return fibo(n-2) + fibo(n - 1)
+  } 
+</pre>
+  
+<h2>如何使用缓存</h2>
+
+<pre>
+  使用闭包，利用数组做缓存。  又恰巧利用n作为索引关系，在数组中索引对应赋予值。
+
+  var fibostorage = function() {
+    var hash = [0, 1]
+  
+    return function(n) {
+      var result = hash[n]
+  
+      if (typeof result !== 'number') {
+        result = fibostorage(n - 2) + fibostorage(n - 1)
+        hash[n] = result
+      }
+  
+      return result
+    }
+  }()
+</pre>
+
+<script>
+function fibo(n) {
+  if(n === 0 || n === 1) {
+    return n
+  }
+
+  return fibo(n-2) + fibo(n - 1)
+}
+
+var result = fibo(7)
+
+// console.log(result)
+
+
+// 带缓存
+var fibostorage = function() {
+  var hash = [0, 1]
+
+  return function(n) {
+    var result = hash[n]
+
+    if (typeof result !== 'number') {
+      result = fibostorage(n - 2) + fibostorage(n - 1)
+      hash[n] = result
+    }
+
+    return result
+  }
+}()
+
+var resultStorage = fibostorage(7)
+
+console.log(resultStorage)
+
+
+</script>
+
+</body>
+</html>
