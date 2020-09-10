@@ -66,6 +66,40 @@ function isValid(s) {
 }
 
 
+// 解法二
+function isValid2(s) {
+  if (s < 0) return false
+  if (s % 2 === 1) return false
+
+  let maps = {
+    '{': '}',
+    '[': ']',
+    '(': ')'
+  }
+
+  let stack = []
+  let leftKey = Object.keys(maps)
+
+  for (let i = 0; i < s.length; i ++) {
+
+    let curr = s[i]
+
+    if (leftKey.indexOf(curr) > -1) {
+      stack.push(curr)
+    }else {
+      let lastKey = stack.pop()
+      if (curr !== maps[lastKey]) {
+        return false
+      }
+    }
+
+  }
+
+  return stack.length ? false : true
+}
+
+let result = isValid2('{[]}')
+console.log('result', result)
 </script>
 
 </body>
