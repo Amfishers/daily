@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+
+let obj = {
+  [Symbol('name')]: 'fisher',
+  age: 14
+}
+
+var r1 = Object.keys(obj)
+console.log('r1', r1)
+
+for (let i in obj) {
+  console.log('r2', i)
+}
+
+var r3 = Reflect.ownKeys(obj)
+console.log('r3', r3)
+</script>
+
+</body>
+</html>
