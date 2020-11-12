@@ -82,6 +82,15 @@ function fibostorage(n) {
     return current;
 }
 
+function fibo(n) {
+  let curr = 0
+  let next = 1
+  for (let i = 0; i < n; i++) {
+    [curr, next] = [next, next+curr]
+  }
+  return
+}
+
 var resultStorage = fibostorage(7)
 
 console.log(resultStorage)
