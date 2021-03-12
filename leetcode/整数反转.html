@@ -44,6 +44,27 @@
 
     return num
 };
+  
+/**
+ * update 2021-3-12
+ * @param {number} x
+ * @return {number}
+ */
+var reverse = function(x) {
+	if (typeof x !== 'string' && typeof x !== 'number') return 0
+	if (parseFloat(x) === 0) return 0
+
+	// Number 可以将前面的 0 自动忽略掉
+	let result = Number((Math.abs(x)+'').split('').reverse().join(''))
+
+	if (x < 0) {
+		result =  result < Math.pow(2, 31) ?  -result : 0
+	}else{
+		result = result < Math.pow(2, 31) ? result : 0
+	}
+
+	return result
+}
 
 </script>
 </body>
