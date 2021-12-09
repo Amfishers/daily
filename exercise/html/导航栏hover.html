@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+    </head>
+    <style>
+        *{margin:0;padding:0;}
+        a{text-decoration:none;color:#000;}
+        ul{margin-top:100px;}
+        li{float:left;list-style:none;padding:0 20px;cursor:pointer;position:relative;}
+        li::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 100%;
+          width: 0;
+          height: 100%;
+          border-bottom: 2px solid #4C7C9C;
+          transition: 0.2s all linear;
+          z-index:-1;
+        }
+        li:hover::before {
+          width: 100%;
+          left: 0;
+        }
+        li:hover ~ li::before {
+          left: 0;
+        }
+    </style>
+    <body>
+        <ul>
+            <li><a href="http://www.baidu.com">11111</a></li>
+            <li><a href="http://www.taobao.com">22222</a></li>
+            <li><a href="http://www.sina.com">33333</a></li>
+            <li><a href="http://www.jd.com">44444</a></li>
+            <li><a href="http://www.360.com">55555</a></li>
+        </ul>
+    </body>
+</html>

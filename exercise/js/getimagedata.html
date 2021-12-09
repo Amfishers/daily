@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+<input id="uploadFile" type="file" accept=".jpg,.gif,.png,.jpeg">
+<button class="button show-btn" id="showBtn">展示</button>
+
+<script type="text/javascript">
+window.onload = function () {
+	const uploadFile = document.getElementById('uploadFile') // 上传 input
+	const showBtn = document.getElementById('showBtn') // 点击展示按钮
+	const img = new Image()
+
+	const canvas = document.createElement("canvas")
+	const ctx = canvas.getContext('2d')
+
+	showBtn.addEventListener('click', () => {
+		const { files } = uploadFile
+		const file = files && files[0]
+        const url = URL.createObjectURL(file)
+        img.src = url
+        img.onload = () => {
+            const {
+                width: imgWidth,
+                height: imgHeight
+            } = img
+            
+            canvas.width = imgWidth
+            canvas.height = imgHeight
+
+            ctx.drawImage(img, 0, 0, imgWidth, imgHeight)
+            const imageData = ctx.getImageData(0, 0, imgWidth, imgHeight)
+            console.log('imageData', imageData)
+        }
+	})
+}
+</script>
+</body>
+</html>

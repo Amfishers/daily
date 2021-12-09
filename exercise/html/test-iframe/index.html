@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+.header {
+    height: 85px;
+}
+.header img {
+    width: 100%;
+        height: 100%;
+
+}
+.content {
+    height: calc(100vh - 85px);
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+.sider {
+    background: rgba(13, 122, 104, 1);
+}
+.wrap {
+    flex: 1;
+}
+.frame {
+    box-sizing: border-box;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #F1F2EB;
+}
+
+</style>
+
+<div>
+    <div class="header">
+        <img src="http://oa.genzon.com.cn/ui-ext/ZhengzhongGroup_V15green/images/portal/nav_header_img.png" alt="">
+    </div>
+    <div class="content">
+        <div class="wrap">
+            <iframe class="frame" src="/html/test-iframe/v.html" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+
+<script>
+function _GetLocation () {
+    return window.location
+}
+</script>
+</body>
+</html>

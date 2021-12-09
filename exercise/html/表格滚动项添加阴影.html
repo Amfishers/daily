@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=`, initial-scale=1.0">
+	<title>表格滚动项添加阴影</title>
+</head>
+<body>
+<style type="text/css">
+*,html {margin: 0; padding: 0;}
+.content {
+	width: 1000px;
+	height: 500px;
+}
+.wrap {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+.main {
+	width: 100%;
+	border: 1px solid #F1F1F1;
+	overflow-x: auto;
+}
+.aa {
+	width: 1500px;
+	height: 500px;
+}
+.left,.right {
+	position: absolute;
+	top: 0;
+	width: 150px;
+	height: 500px;
+}
+.left {
+	left: 0;
+	color: #FFF;
+	background: #000;
+	border-right: 1px solid #000;
+}
+.right {
+	right: 0;
+	background: #0CC;
+	border-left: 1px solid #000;
+}
+
+/*.g-combine-left {
+    background: 
+        linear-gradient(left, #fff, transparent 100%),
+        linear-gradient(left, rgba(0, 0, 0, .5), transparent 100%);
+	background-size: 100% 50px, 100% 10px;
+    background-repeat: no-repeat;
+    background-attachment: local, scroll;
+}
+
+.g-combine-right {
+    background:
+        linear-gradient(#fff, transparent 100%),
+        linear-gradient(rgba(0, 0, 0, .5), transparent 100%);
+    background-size: 100% 50px, 100% 10px;
+    background-repeat: no-repeat;
+    background-attachment: local, scroll;
+}*/
+</style>
+
+<div class="content">
+	<div class="wrap">
+		<div class="left g-combine-left">left</div>
+		<div class="main"><div class="aa">main</div></div>
+		<div class="right g-combine-right">right</div>
+	</div>
+</div>
+
+</body>
+</html>

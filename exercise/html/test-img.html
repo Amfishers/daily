@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+
+<img id="testImg" src="
+https://dfiles.tms.beisen.com/resume/109422/1636616477/ab25ef500cdf44459ffc8bc867e6e523.jpeg?sig_a=beisen.recruitment.openapi&sig_t=1636620035&sig_npm=4&sig_v=1&sig=158dd5a64cc6c9b557edcc69ef7d7f6f05824860" alt="">
+
+<script type="text/javascript">
+function getImage(url,imgId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('get', url, true);
+    xhr.responseType = 'blob';
+    xhr.onload = function () {
+        if (this.status == 200) {
+            document.getElementById(imgId).src =  URL.createObjectURL(this.response);
+        }
+    };
+    xhr.send();
+}
+
+var img1 = 'https://clouddfiles.tms.beisen.com/resume/109422/1636616477/ab25ef500cdf44459ffc8bc867e6e523.jpeg?sig_a=beisen.recruitment.openapi&sig_t=1636709990&sig_npm=4&sig_v=1&sig=b8456be7963eb0f5a2eec5b754736b0d7d8235e3'
+
+var img2 = 'https://dfiles.tms.beisen.com/resume/109422/1636616477/ab25ef500cdf44459ffc8bc867e6e523.jpeg?sig_a=beisen.recruitment.openapi&sig_t=1636620035&sig_npm=4&sig_v=1&sig=158dd5a64cc6c9b557edcc69ef7d7f6f05824860'
+
+var testImg = document.getElementById("testImg");
+var reader = new FileReader();
+reader.readAsText(testImg);
+reader.onload = function(){
+    //读取完毕后输出结果
+    console.log('result', this.result);
+}
+// getImage(img1, 'testImg')
+
+
+
+</script>
+	
+</body>
+</html>

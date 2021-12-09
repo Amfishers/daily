@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+function test () {
+  let a = 1
+
+  for (let i = 0; i < 5; i++) {
+  	let a = 5 
+  	console.log('result: ' + (i + 5))
+  }
+
+
+}
+
+// test()
+
+
+
+var data = [];
+
+[0,1,2,3,4].forEach(function(i) {
+	console.log(i)
+  let s = 1
+  data[i] = function () {
+    console.log(i);
+    console.log('result:' + (i + s))
+    console.log('-------------')
+  };
+})
+
+
+// for (let i = 0; i < 3; i++) {
+//   let s = 1
+//   data[i] = function () {
+//     console.log(i);
+//     console.log('result:' + (i + s))
+//     console.log('-------------')
+//   };
+// }
+
+data[0]();
+data[1]();
+data[2]();
+
+</script>
+</body>
+</html>

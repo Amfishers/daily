@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+
+<script type="text/javascript">
+const vm = {
+	data: {
+        title: 'users',
+        deep: {a: {b: {name: 'berwin'}}},
+        list: [{name: 'berwin', age: 22}]
+    }
+}
+
+const bailRE = /[^\w.$]/
+function parsePath (path) {
+  if (bailRE.test(path)) {
+    return
+  }
+  const segments = path.split('.')
+  return function (obj) {
+    for (let i = 0; i < segments.length; i++) {
+      if (!obj) return
+      obj = obj[segments[i]]
+    }
+    return obj
+  }
+}
+
+var getter = parsePath('data.list')
+var value = getter.call(vm, vm)
+
+console.log('value', value
+	)
+
+</script>
+
+</body>
+</html>

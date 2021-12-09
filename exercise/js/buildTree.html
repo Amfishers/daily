@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>扁平结构与树结构相转化</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	
+let flatData = [
+	{ id: 1, name: 't1', pid: 0 },
+	{ id: 2, name: 't2', pid: 1 },
+	{ id: 3, name: 't3', pid: 2 },
+	{ id: 4, name: 't4', pid: 3 },
+	{ id: 5, name: 't5', pid: 1 },
+	{ id: 6, name: 't6', pid: 2 },
+	{ id: 7, name: 't7', pid: 3 },
+	{ id: 8, name: 't8', pid: 1 },
+	{ id: 9, name: 't9', pid: 0 },
+]
+
+
+
+let treeData = [
+	{ 
+		pid: 0, 
+		name: 't1', 
+		id: 1, 
+		children: [
+			{
+				id: 2,
+				name: 't2',
+				pid: 1,
+				children: [
+					{
+						id: 3,
+						name: 't3',
+						pid: 2,
+						children: [
+							{
+								id: 4,
+								name: 't4',
+								pid: 3,
+								children: []
+							},
+							{
+								id: 7,
+								name: 't7',
+								pid: 3,
+								children: []
+							}
+						]
+					},
+					{
+						id: 6,
+						name: 't6',
+						pid: 2,
+						children: []
+					},
+				],
+			},
+			{
+				id: 5,
+				name: 't5',
+				pid: 1,
+				children: []
+			},
+			{
+				id: 8,
+				name: 't8',
+				pid: 1,
+				children: []
+			},
+
+		],
+	},
+	{ 
+		pid: 0,
+		name: 't9',
+		id: 9,
+		children: []
+	},
+]
+
+
+// 扁平变树结构
+function transformTree (list) {
+    const tree = []
+    
+    for (let i = 0, len = list.length; i < len; i++) {
+        if (!list[i].pid) {
+            const item = queryChildren(list[i], list)
+            
+            tree.push(item)
+        }
+    }
+    
+    return tree
+}
+
+function queryChildren (parent, list) {
+    const children = []
+    
+    for (let i = 0, len = list.length; i < len; i++) {
+        if (list[i].pid === parent.id) {
+            const item = queryChildren(list[i], list)
+
+            children.push(item)
+        }
+    }
+    
+    if (children.length) {
+        parent.children = children
+    }
+    
+    return parent
+}
+
+
+// 比较高效方法
+function transformTree (list) {
+    const tree = []
+    const record = {}
+    
+    for (let i = 0, len = list.length; i < len; i++) {
+        const item = list[i]
+        const id = item.id
+        
+        if (record[id]) {
+            item.children = record[id]
+        } else {
+            item.children = record[id] = []
+        }
+        
+        if (item.pid) {
+            if (!record[item.pid]) {
+                record[item.pid] = []
+            }
+            
+            record[item.pid].push(item)
+        } else {
+            tree.push(item)
+        }
+    }
+}
+
+var result = transformTree(flatData)
+console.log('result', result)
+
+
+
+// 根据 id 查询当前树
+// 返回当前 id 节点到根节点的路径
+
+
+// 用于存储递归结果（扁平数据）
+let res = []
+// 递归函数
+const fn = (source) => {
+	source.forEach(el => {
+		res.push(el)
+
+		el.children && el.children.length && fn(el.children)
+	})
+}
+
+
+fn(treeData, 0)
+console.log('res', res)
+
+
+// function findTreeIndex(treeData, index) {
+// 	let res = []
+
+// 	let s = fn(treeData)
+
+// 	console.log('s', s)
+// }
+
+// var s = findTreeIndex(treeData)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var getPathById = function (id, catalog, callback) {
+ 
+    //定义变量保存当前结果路径
+    var temppath = [];
+    try {
+        function getNodePath(node) {
+            temppath.push(node.name);
+ 
+            //找到符合条件的节点，通过throw终止掉递归
+            if (node.id == parseInt(cataid)) {
+                throw ("GOT IT!");
+            }
+            if (node.children && node.children.length > 0) {
+                for (var i = 0; i < node.children.length; i++) {
+                    getNodePath(node.children[i]);
+                }
+ 
+                //当前节点的子节点遍历完依旧没找到，则删除路径中的该节点
+                temppath.pop();
+            }
+            else {
+ 
+                //找到叶子节点时，删除路径当中的该叶子节点
+                temppath.pop();
+            }
+        }
+        getNodePath(catalog);
+    }
+    catch (e) {
+        var result = temppath.join("\\");
+        callback(result);
+    }
+}
+
+
+
+
+// 递归查找
+var path = []
+var parse = function(data) {
+	var obj = data[0]
+	if (obj.name) {
+		path.push(obj.name)
+	}
+
+	if (obj.children) {
+		obj = obj.children
+		parse(obj)
+	}else {
+		return
+	}
+}
+
+
+
+
+</script>
+
+
+</body>
+</html>

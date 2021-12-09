@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+<style type="text/css">
+*{padding: 0;margin: 0;}
+.div1 {
+	width: 100px;
+	height: 100px;
+	background: #000;
+}
+.aa {
+	width: 80px;
+	height: 60px;
+	margin: 100px 0 0 100px;
+}
+</style>
+
+<div class="div1"></div>
+
+<button class="aa" onclick="changeType()">点我修改上传</button>
+
+<script type="text/javascript">
+const div = document.querySelector('.div1')
+console.log('div', div)
+var i = 1
+
+div.addEventListener( 'dragover', preventDefaultSetDropEffectToNone )
+div.addEventListener( 'drop', showWhat )
+
+function preventDefaultSetDropEffectToNone( evt ) {
+	console.log('evt -- dragover', i++, evt)
+	evt.preventDefault();
+	// evt.dataTransfer.dropEffect = 'none';
+}
+
+function showWhat (evt) {
+	evt.preventDefault();
+	console.log('evt -- drop', evt)
+}
+
+function changeType () {
+	console.log('button click')
+	div.addEventListener( 'dragover', function (evt) {
+		evt.preventDefault();
+		evt.dataTransfer.dropEffect = 'none';
+	})
+}
+</script>
+</body>
+</html>

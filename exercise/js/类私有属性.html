@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>类私有属性</title>
+</head>
+<body>
+
+<script type="text/javascript">
+window.onload = function () {
+	class Person {
+		_age = 10
+
+		get age() {
+			return this._age
+		}
+
+		constructor(name) {
+			this.name = name
+		}
+		name () {
+			console.log('name')
+		}
+	}
+
+
+	var xiaoming = new Person('xiaoming')
+
+	console.log('xiaoming', xiaoming)
+
+	class Hong extends Person {
+		sex() {
+			alert(`Hi ${this.name}`)
+		}
+	}
+
+	var hong = new Hong('hong')
+
+	console.log('hong', hong)
+
+}
+
+</script>
+	
+</body>
+</html>

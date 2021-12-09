@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>不遮脸</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer@1.25.0/dist/DPlayer.min.css">
+</head>
+<body>
+
+<style type="text/css">
+#mask {
+	position: relative;
+	width: 700px;
+	height: 400px;
+	-webkit-mask-image: url("data:image/png;base64,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");
+
+	background-image: url(./1.jpg);
+
+
+	color: #ffffff82;
+	font-size: 14px;
+	text-shadow: 1px 1px #000;
+	overflow: hidden;
+}
+
+#wrapper {
+    height: 400px;
+    width: 700px;
+    position: relative;
+    overflow: hidden;
+    background: #dadada;
+
+    color: #000;
+    font-size: 14px;
+    text-shadow: 1px 1px #000;
+}
+
+.right {
+    position: absolute;
+    visibility: hidden;
+    white-space: nowrap;
+    /*left: 700px;*/
+    transform: translateX(700px);
+}
+
+.left {
+    position: absolute;
+    white-space: nowrap;
+    user-select: none;
+    transition: transform 7s linear;
+    /* 时间相同 越长的弹幕滑动距离越长 所以越快~ */
+}
+
+input {
+    position: absolute;
+    bottom: 10px;
+    left: 150px;
+    width: 300px;
+    height: 26px;
+}
+
+button {
+    position: absolute;
+    bottom: 8px;
+    left: 476px;
+    width: 100px;
+    height: 38px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+</style>
+
+<div>
+	<div id="dplayer1"></div>
+	<div id="mask" style="">
+		
+
+	        <input type="text">
+	        <button>发&nbsp;&nbsp;送</button>
+
+	</div>
+	</div>
+<!-- Load TensorFlow.js -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2.9"></script>
+
+<!-- Load BodyPix -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix@1.0.0"></script>
+
+<!-- 一个弹幕播放器 -->
+<script src="https://cdn.jsdelivr.net/npm/dplayer@1.25.0/dist/DPlayer.min.js"></script>
+
+<script type="text/javascript">
+ 	/**
+     * 设置 视频转换为图片
+    **/
+	 function imagedata_to_dataurl(imagedata) {
+	    var canvas = document.createElement('canvas');
+	    var ctx = canvas.getContext('2d');
+	    canvas.width = imagedata.width;
+	    canvas.height = imagedata.height;
+	    ctx.putImageData(imagedata, 0, 0);
+
+	    return canvas.toDataURL();
+	  }
+
+	  // image - ImageData|HTMLImageElement|HTMLCanvasElement|HTMLVideoElement The input image to feed through the network.
+	  async function getParser() {
+	    var outputStride = 16; //  Must be 32, 16, 8, The higher the number, the faster the performance but slower the accuracy
+	    var segmentationThreshold = 0.5;
+	    const net = await bodyPix.load();
+
+	    return async function parser(image) {
+	      const personSegmentation = await net.estimatePersonSegmentation(image, outputStride, segmentationThreshold)
+
+	      // by setting maskBackground to false, the maskImage that is generated will be opaque where there is a person and transparent where there is a background.
+	      const maskBackground = true;
+	      const maskImage = bodyPix.toMaskImageData(personSegmentation, maskBackground);
+	      return maskImage /* imageData */
+	    }
+	  }
+
+	  function captureImage(video, playerWidth) {
+	    var canvas = document.createElement("canvas");
+	    const scale = playerWidth / video.videoWidth
+
+	    canvas.width = video.videoWidth * scale;
+	    canvas.height = video.videoHeight * scale;
+	    var context = canvas.getContext('2d')
+	    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+	    var imageData = context.getImageData(0, 0, canvas.width, canvas.height)
+	    return imageData
+	  }
+
+	  async function main() {
+	    window.dp1 = new DPlayer({
+	      container: document.getElementById('dplayer1'),
+	      preload: 'none',
+	      screenshot: true,
+	      video: {
+	        url: 'https://api.dogecloud.com/player/get.mp4?vcode=5ac682e6f8231991&userId=17&ext=.mp4',
+	        pic: 'https://i.loli.net/2019/06/06/5cf8c5d9c57b510947.png',
+	        thumbnails: 'https://i.loli.net/2019/06/06/5cf8c5d9cec8510758.jpg'
+	      },
+	      // subtitle: {
+	      //   url: 'https://moeplayer.b0.upaiyun.com/dplayer/hikarunara.vtt'
+	      // },
+	      // danmaku: {
+	      //   id: '9E2E3368B56CDBB4',
+	      //   api: 'https://api.prprpr.me/dplayer/',
+	      //   addition: ['https://cn-south-17-dplayer-49648867.oss.dogecdn.com/1678963.json']
+	      // }
+	    });
+
+	    const videoEle = document.querySelector('video.dplayer-video')
+	    const danmakuContainer = document.querySelector('.dplayer-danmaku')
+	    const dplayer1 = document.getElementById('dplayer1')
+	    const mask = document.getElementById('mask')
+
+	    const playerWidth = 500
+	    dplayer1.style.width = `${playerWidth}px`
+
+	    const parser = await getParser()
+
+	    async function loop() {
+	      const imageData = captureImage(videoEle, playerWidth)
+	      const maskImage = await parser(imageData) // 直接传入HTMLVideoElement报错了... 暂时一帧一帧从视频抓
+
+	      const dataurl = imagedata_to_dataurl(maskImage)
+	      danmakuContainer.style.webkitMaskImage = `url(${dataurl})`
+	      mask.style.webkitMaskImage = 'url(' + dataurl + ');'
+	    }
+
+	    let intervelId = null
+	    videoEle.addEventListener("playing", () => { intervelId = setInterval(loop, 100); });
+	    videoEle.addEventListener("ended", () => { if (intervelId) clearInterval(intervelId) });
+	    videoEle.addEventListener("pause", () => { if (intervelId) clearInterval(intervelId) });
+	  }
+
+	  main()
+
+
+
+
+     	/**
+         * 设置 弹幕DOM池 每一个通道最多六条弹幕
+        **/
+
+        const MAX_DM_COUNT = 6;
+        const CHANNEL_COUNT = 10;
+
+        let domPool = [];
+        let danmuPool = [
+            '前方大量弹幕来袭，请做好准备！', '2333333', '你指尖悦动的电光，是我此生不变的信仰'
+        ];
+        let hasPosition = [];
+
+        /**
+         * 做一下初始化工作
+         */
+        function init() {
+            let wrapper = document.getElementById('mask')
+            // 先new一些span 重复利用这些DOM
+            for (let j = 0; j < CHANNEL_COUNT; j++) {
+                let doms = [];
+                for (let i = 0; i < MAX_DM_COUNT; i++) {
+                    // 要全部放进wrapper
+                    let dom = document.createElement('span');
+                    wrapper.appendChild(dom);
+                    // 初始化dom的位置 通过设置className
+                    dom.className = 'right';
+                    // DOM的通道是固定的 所以设置好top就不需要再改变了
+                    dom.style.top = j * 20 + 'px';
+                    // 放入改通道的DOM池
+                    doms.push(dom);
+                    // 每次到transition结束的时候 就是弹幕划出屏幕了 将DOM位置重置 再放回DOM池
+                    dom.addEventListener('transitionend', () => {
+                        dom.className = 'right';
+                        // dom.style.transition = null;
+                        // dom.style.left = null;
+                        dom.style.transform = null;
+
+                        domPool[j].push(dom);
+                    });
+                }
+                domPool.push(doms);
+            }
+            // hasPosition 标记每个通道目前是否有位置
+            for (let i = 0; i < CHANNEL_COUNT; i++) {
+                hasPosition[i] = true;
+            }
+        }
+
+        /**
+         * 获取一个可以发射弹幕的通道 没有则返回-1
+         */
+        function getChannel() {
+            for (let i = 0; i < CHANNEL_COUNT; i++) {
+                if (hasPosition[i] && domPool[i].length) return i;
+            }
+            return -1;
+        }
+
+        /**
+         * 根据DOM和弹幕信息 发射弹幕
+         */
+        function shootDanmu(dom, text, channel) {
+            console.log('biu~ [' + text + ']');
+            dom.innerText = text;
+            // 如果为每个弹幕设置 transition 可以保证每个弹幕的速度相同 这里没有保证速度相同
+            // dom.style.transition = `transform ${7 + dom.clientWidth / 100}s linear`;
+
+            // dom.style.left = '-' + dom.clientWidth + 'px';
+            // 设置弹幕的位置信息 性能优化 left -> transform
+            dom.style.transform = `translateX(${-dom.clientWidth}px)`;
+            dom.className = 'left';
+
+            hasPosition[channel] = false;
+            // 弹幕全部显示之后 才能开始下一条弹幕
+            // 大概 dom.clientWidth * 10 的时间 该条弹幕就从右边全部划出到可见区域 再加1秒保证弹幕之间距离
+            setTimeout(() => {
+                hasPosition[channel] = true;
+            }, dom.clientWidth * 10 + 1000);
+        }
+
+        window.onload = function () {
+
+            init();
+
+            // 为input和button添加事件监听
+            let btn = document.getElementsByTagName('button')[0];
+            let input = document.getElementsByTagName('input')[0];
+            btn.addEventListener('click', () => {
+                input.value = input.value.trim();
+                if (input.value) {
+                    danmuPool.push(input.value);
+                    input.value = '';
+                }
+            })
+            input.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter' && (input.value = input.value.trim())) {
+                    danmuPool.push(input.value);
+                    input.value = '';
+                }
+            })
+            // 每隔1ms从弹幕池里获取弹幕（如果有的话）并发射
+            setInterval(() => {
+                let channel;
+                if (danmuPool.length && (channel = getChannel()) != -1) {
+                    let dom = domPool[channel].shift();
+                    let danmu = danmuPool.shift();
+                    shootDanmu(dom, danmu, channel);
+                }
+            }, 1);
+
+            // document.forms[0].submit();
+        }
+
+
+// 参考
+// https://github.com/chess99/demo/blob/master/tfjs/danmaku-mask.html#L25
+
+</script>
+</body>
+</html>

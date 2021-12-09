@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+// 扁平结构
+const flatData = [
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"业务系统数据字典配置的父节点",
+        "propertyId":59,
+        "parentId":0,
+        "parentName":null,
+        "name":"APP",
+        "value":null,
+        "displayName":"APP",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":null,
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "propertyId":60,
+        "parentId":59,
+        "parentName":"APP",
+        "name":"Role",
+        "value":null,
+        "displayName":"Role",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "propertyId":61,
+        "parentId":59,
+        "parentName":"APP",
+        "name":"User",
+        "value":null,
+        "displayName":"User",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "propertyId":62,
+        "parentId":59,
+        "parentName":"APP",
+        "name":"Upload",
+        "value":null,
+        "displayName":"Upload",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"当用户没有给予默认角色时，启用该配置则系统自动授予此角色权限访问。",
+        "propertyId":63,
+        "parentId":60,
+        "parentName":"Role",
+        "name":"DefaultRoleId",
+        "value":"1",
+        "displayName":"DefaultRoleId",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Role",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"1:合并角色",
+        "propertyId":64,
+        "parentId":60,
+        "parentName":"Role",
+        "name":"MergePolicy",
+        "value":"0",
+        "displayName":"MergePolicy",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Role",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"不要删除，当没有登录时系统自动使用该虚拟用户进行登录。",
+        "propertyId":65,
+        "parentId":61,
+        "parentName":"User",
+        "name":"VirtualAccount",
+        "value":"guest",
+        "displayName":"VirtualAccount",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.User",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"同时最多上传的文件数",
+        "propertyId":66,
+        "parentId":62,
+        "parentName":"Upload",
+        "name":"MaxFileCount",
+        "value":"5",
+        "displayName":"MaxFileCount",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Upload",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"单个文件的存储最大值，默认20M",
+        "propertyId":67,
+        "parentId":62,
+        "parentName":"Upload",
+        "name":"MaxFileSize",
+        "value":"20971520",
+        "displayName":"MaxFileSize",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Upload",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"同时上传的所有文件的存储最大值，默认100M",
+        "propertyId":68,
+        "parentId":62,
+        "parentName":"Upload",
+        "name":"MaxAllFileSize",
+        "value":"104857600",
+        "displayName":"MaxAllFileSize",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Upload",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"文件存储分割类型，默认按天分割",
+        "propertyId":69,
+        "parentId":62,
+        "parentName":"Upload",
+        "name":"SplitType",
+        "value":"DAY",
+        "displayName":"SplitType",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Upload",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"上传文件存储路径",
+        "propertyId":70,
+        "parentId":62,
+        "parentName":"Upload",
+        "name":"SavePath",
+        "value":"dm/upload",
+        "displayName":"SavePath",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Upload",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "propertyId":71,
+        "parentId":0,
+        "parentName":null,
+        "name":"Iori",
+        "value":null,
+        "displayName":"Iori",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":null,
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "propertyId":72,
+        "parentId":71,
+        "parentName":"Iori",
+        "name":"GlobalParamsters",
+        "value":null,
+        "displayName":"GlobalParamsters",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"Iori",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "propertyId":73,
+        "parentId":72,
+        "parentName":"GlobalParamsters",
+        "name":"LoadResourceFromHtmlArea",
+        "value":"1",
+        "displayName":"LoadResourceFromHtmlArea",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"Iori.GlobalParamsters",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "propertyId":114,
+        "parentId":59,
+        "parentName":"APP",
+        "name":"Info",
+        "value":null,
+        "displayName":"Info",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"系统描述，配置后会显示在导航栏，默认显示appName",
+        "propertyId":115,
+        "parentId":114,
+        "parentName":"Info",
+        "name":"Desc",
+        "value":"平台开发环境",
+        "displayName":"Desc",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Info",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":" 系统logo",
+        "propertyId":116,
+        "parentId":114,
+        "parentName":"Info",
+        "name":"Logo",
+        "value":"ioriframework/boot/web/resource/theme/default/favicon.ico",
+        "displayName":"Logo",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Info",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"分布式后台服务地址列表",
+        "propertyId":131,
+        "parentId":59,
+        "parentName":"APP",
+        "name":"BackgroundAppList",
+        "value":null,
+        "displayName":"BackgroundAppList",
+        "language":null,
+        "listindex":0,
+        "status":0,
+        "parentPath":"APP",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"分布式后台服务地址列表",
+        "propertyId":132,
+        "parentId":131,
+        "parentName":"BackgroundAppList",
+        "name":"Sso",
+        "value":"http://pf.iori.org:8089/sso/",
+        "displayName":"Sso",
+        "language":null,
+        "listindex":0,
+        "status":0,
+        "parentPath":"APP.BackgroundAppList",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"分布式后台服务地址列表",
+        "propertyId":133,
+        "parentId":131,
+        "parentName":"BackgroundAppList",
+        "name":"Demo",
+        "value":"http://pf.iori.org:8089/demo/",
+        "displayName":"Demo",
+        "language":null,
+        "listindex":0,
+        "status":0,
+        "parentPath":"APP.BackgroundAppList",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"分布式后台服务地址列表",
+        "propertyId":134,
+        "parentId":131,
+        "parentName":"BackgroundAppList",
+        "name":"Job",
+        "value":"http://pf.iori.org:8089/job/",
+        "displayName":"Job",
+        "language":null,
+        "listindex":0,
+        "status":0,
+        "parentPath":"APP.BackgroundAppList",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"全局配置参数",
+        "propertyId":135,
+        "parentId":59,
+        "parentName":"APP",
+        "name":"GlobalParameters",
+        "value":null,
+        "displayName":"GlobalParameters",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"通过数据字典获取是否从富文本中获取资源，1：是，0：否默认为不从富文本中获取资源",
+        "propertyId":136,
+        "parentId":135,
+        "parentName":"GlobalParameters",
+        "name":"LoadResourceFromHtmlArea",
+        "value":"0",
+        "displayName":"LoadResourceFromHtmlArea",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.GlobalParameters",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"合并游客角色0:不合并，1:合并",
+        "propertyId":137,
+        "parentId":60,
+        "parentName":"Role",
+        "name":"MergeGuest",
+        "value":"0",
+        "displayName":"MergeGuest",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Role",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"应用当前版本号(发布日期)",
+        "propertyId":148,
+        "parentId":59,
+        "parentName":"APP",
+        "name":"Version",
+        "value":"20170930",
+        "displayName":"Version",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "propertyId":154,
+        "parentId":59,
+        "parentName":"APP",
+        "name":"Excel",
+        "value":null,
+        "displayName":"Excel",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"导出Excel的默认列宽配置，如果删除或无效此字典配置，框架默认500",
+        "propertyId":155,
+        "parentId":154,
+        "parentName":"Excel",
+        "name":"ExportColumnWidth",
+        "value":"500",
+        "displayName":"ExportColumnWidth",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Excel",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"导出Excel的默认行高配置，如果删除或无效此字典配置，框架默认300",
+        "propertyId":156,
+        "parentId":154,
+        "parentName":"Excel",
+        "name":"ExportRowHeight",
+        "value":"300",
+        "displayName":"ExportRowHeight",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Excel",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "propertyId":177,
+        "parentId":59,
+        "parentName":"APP",
+        "name":"Language",
+        "value":null,
+        "displayName":"Language",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"默认语言",
+        "propertyId":178,
+        "parentId":177,
+        "parentName":"Language",
+        "name":"Default",
+        "value":"zh-CN",
+        "displayName":"Default",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Language",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"支持语言集",
+        "propertyId":179,
+        "parentId":177,
+        "parentName":"Language",
+        "name":"Support",
+        "value":"zh-CN=中文;en-US=English",
+        "displayName":"Support",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP.Language",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"testDescription",
+        "propertyId":196,
+        "parentId":196,
+        "parentName":"testName",
+        "name":"testName",
+        "value":"testValue",
+        "displayName":"testDisplayName",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"testDisplayName.testName",
+        "currentUserId":77
+    },
+    {
+        "appName":"pangu",
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":"testDescription",
+        "propertyId":197,
+        "parentId":59,
+        "parentName":"APP",
+        "name":"testName",
+        "value":"testValue",
+        "displayName":"testDisplayName",
+        "language":null,
+        "listindex":0,
+        "status":1,
+        "parentPath":"APP",
+        "currentUserId":77
+    }
+]
+
+// 树结构
+const treeData = [
+    {
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "createdByName":null,
+        "lastUpdatedByName":null,
+        "sitemapId":174,
+        "parentId":0,
+        "policyId":null,
+        "displayText":"橙蕉管理后台",
+        "text":"橙蕉管理后台",
+        "icon":"",
+        "orderNo":0,
+        "permissionCode":"",
+        "status":1,
+        "target":"_self",
+        "path":"/deal",
+        "nodeLevel":1,
+        "children":[
+            {
+                "createdBy":null,
+                "creationDate":null,
+                "lastUpdatedBy":null,
+                "lastUpdateDate":null,
+                "description":null,
+                "createdByName":null,
+                "lastUpdatedByName":null,
+                "sitemapId":177,
+                "parentId":174,
+                "policyId":null,
+                "displayText":"渠道管理",
+                "text":"渠道管理",
+                "icon":"",
+                "orderNo":0,
+                "permissionCode":"",
+                "status":1,
+                "target":"_self",
+                "path":"/channel",
+                "nodeLevel":2,
+                "children":[
+                    {
+                        "createdBy":null,
+                        "creationDate":null,
+                        "lastUpdatedBy":null,
+                        "lastUpdateDate":null,
+                        "description":null,
+                        "createdByName":null,
+                        "lastUpdatedByName":null,
+                        "sitemapId":178,
+                        "parentId":177,
+                        "policyId":null,
+                        "displayText":"经纪人管理",
+                        "text":"经纪人管理",
+                        "icon":"",
+                        "orderNo":0,
+                        "permissionCode":"",
+                        "status":1,
+                        "target":"_self",
+                        "path":"/broker/index",
+                        "nodeLevel":3
+                    }
+                ]
+            },
+            {
+                "createdBy":null,
+                "creationDate":null,
+                "lastUpdatedBy":null,
+                "lastUpdateDate":null,
+                "description":null,
+                "createdByName":null,
+                "lastUpdatedByName":null,
+                "sitemapId":175,
+                "parentId":174,
+                "policyId":2,
+                "displayText":"营销管理",
+                "text":"营销管理",
+                "icon":"",
+                "orderNo":0,
+                "permissionCode":"",
+                "status":1,
+                "target":"_self",
+                "path":"/marketing-rules",
+                "nodeLevel":2,
+                "children":[
+                    {
+                        "createdBy":null,
+                        "creationDate":null,
+                        "lastUpdatedBy":null,
+                        "lastUpdateDate":null,
+                        "description":null,
+                        "createdByName":null,
+                        "lastUpdatedByName":null,
+                        "sitemapId":186,
+                        "parentId":175,
+                        "policyId":null,
+                        "displayText":"产品管理",
+                        "text":"产品管理",
+                        "icon":"",
+                        "orderNo":0,
+                        "permissionCode":"",
+                        "status":1,
+                        "target":"_self",
+                        "path":"/",
+                        "nodeLevel":3
+                    },
+                    {
+                        "createdBy":null,
+                        "creationDate":null,
+                        "lastUpdatedBy":null,
+                        "lastUpdateDate":null,
+                        "description":null,
+                        "createdByName":null,
+                        "lastUpdatedByName":null,
+                        "sitemapId":176,
+                        "parentId":175,
+                        "policyId":null,
+                        "displayText":"营销规则",
+                        "text":"营销规则",
+                        "icon":"",
+                        "orderNo":0,
+                        "permissionCode":"",
+                        "status":1,
+                        "target":"_self",
+                        "path":"/marketing-rules/index",
+                        "nodeLevel":3
+                    }
+                ]
+            },
+            {
+                "createdBy":null,
+                "creationDate":null,
+                "lastUpdatedBy":null,
+                "lastUpdateDate":null,
+                "description":null,
+                "createdByName":null,
+                "lastUpdatedByName":null,
+                "sitemapId":180,
+                "parentId":174,
+                "policyId":2,
+                "displayText":"项目管理",
+                "text":"项目管理",
+                "icon":"",
+                "orderNo":1,
+                "permissionCode":"Service$projectService$search",
+                "status":1,
+                "target":"_self",
+                "path":"/product/project",
+                "nodeLevel":2
+            }
+        ]
+    },
+    {
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "createdByName":null,
+        "lastUpdatedByName":null,
+        "sitemapId":47,
+        "parentId":0,
+        "policyId":1,
+        "displayText":"zh-CN=系统管理;en-US=System Manager",
+        "text":"系统管理",
+        "icon":"el-icon-set-up",
+        "orderNo":1,
+        "permissionCode":null,
+        "status":1,
+        "target":"_self",
+        "path":"/system",
+        "nodeLevel":1,
+        "children":[
+            {
+                "createdBy":null,
+                "creationDate":null,
+                "lastUpdatedBy":null,
+                "lastUpdateDate":null,
+                "description":null,
+                "createdByName":null,
+                "lastUpdatedByName":null,
+                "sitemapId":139,
+                "parentId":47,
+                "policyId":1,
+                "displayText":"zh-CN=权限管理;en-US=Permission Manager",
+                "text":"权限管理",
+                "icon":"el-icon-setting",
+                "orderNo":0,
+                "permissionCode":null,
+                "status":1,
+                "target":"_self",
+                "path":"/security",
+                "nodeLevel":2,
+                "children":[
+                    {
+                        "createdBy":null,
+                        "creationDate":null,
+                        "lastUpdatedBy":null,
+                        "lastUpdateDate":null,
+                        "description":null,
+                        "createdByName":null,
+                        "lastUpdatedByName":null,
+                        "sitemapId":49,
+                        "parentId":139,
+                        "policyId":null,
+                        "displayText":"zh-CN=用户管理;en-US=User Manager",
+                        "text":"用户管理",
+                        "icon":"user",
+                        "orderNo":0,
+                        "permissionCode":"Service$userService$search",
+                        "status":1,
+                        "target":"_self",
+                        "path":"/security/user",
+                        "nodeLevel":3
+                    },
+                    {
+                        "createdBy":null,
+                        "creationDate":null,
+                        "lastUpdatedBy":null,
+                        "lastUpdateDate":null,
+                        "description":null,
+                        "createdByName":null,
+                        "lastUpdatedByName":null,
+                        "sitemapId":50,
+                        "parentId":139,
+                        "policyId":null,
+                        "displayText":"zh-CN=角色管理;en-US=Role Manager",
+                        "text":"角色管理",
+                        "icon":"el-icon-user",
+                        "orderNo":1,
+                        "permissionCode":"Service$roleService$search",
+                        "status":1,
+                        "target":"_self",
+                        "path":"/security/role",
+                        "nodeLevel":3
+                    },
+                    {
+                        "createdBy":null,
+                        "creationDate":null,
+                        "lastUpdatedBy":null,
+                        "lastUpdateDate":null,
+                        "description":null,
+                        "createdByName":null,
+                        "lastUpdatedByName":null,
+                        "sitemapId":55,
+                        "parentId":139,
+                        "policyId":2,
+                        "displayText":"zh-CN=数据范围;en-US=Data Programer",
+                        "text":"数据范围",
+                        "icon":"el-icon-s-operation",
+                        "orderNo":2,
+                        "permissionCode":"Service$attachmentService$create",
+                        "status":1,
+                        "target":"_self",
+                        "path":"/security/program",
+                        "nodeLevel":3,
+                        "children":[
+
+                        ]
+                    },
+                    {
+                        "createdBy":null,
+                        "creationDate":null,
+                        "lastUpdatedBy":null,
+                        "lastUpdateDate":null,
+                        "description":null,
+                        "createdByName":null,
+                        "lastUpdatedByName":null,
+                        "sitemapId":56,
+                        "parentId":139,
+                        "policyId":2,
+                        "displayText":"zh-CN=数据维度;en-US=Data Dimension",
+                        "text":"数据维度",
+                        "icon":"el-icon-s-data",
+                        "orderNo":3,
+                        "permissionCode":"Service$dimensionService$search",
+                        "status":1,
+                        "target":"_self",
+                        "path":"/security/dimension",
+                        "nodeLevel":3
+                    }
+                ]
+            },
+            {
+                "createdBy":null,
+                "creationDate":null,
+                "lastUpdatedBy":null,
+                "lastUpdateDate":null,
+                "description":null,
+                "createdByName":null,
+                "lastUpdatedByName":null,
+                "sitemapId":51,
+                "parentId":47,
+                "policyId":null,
+                "displayText":"zh-CN=菜单管理;en-US=Sitemap Manager",
+                "text":"菜单管理",
+                "icon":"el-icon-set-up",
+                "orderNo":2,
+                "permissionCode":"Service$sitemapService$siteManager",
+                "status":1,
+                "target":"_self",
+                "path":"/sitemap",
+                "nodeLevel":2
+            },
+            {
+                "createdBy":null,
+                "creationDate":null,
+                "lastUpdatedBy":null,
+                "lastUpdateDate":null,
+                "description":null,
+                "createdByName":null,
+                "lastUpdatedByName":null,
+                "sitemapId":52,
+                "parentId":47,
+                "policyId":2,
+                "displayText":"zh-CN=分类信息;en-US=Lookup",
+                "text":"分类信息",
+                "icon":"el-icon-set-up",
+                "orderNo":3,
+                "permissionCode":"Service$lookupClassifyService$search",
+                "status":1,
+                "target":"_self",
+                "path":"/lookup",
+                "nodeLevel":2
+            },
+            {
+                "createdBy":null,
+                "creationDate":null,
+                "lastUpdatedBy":null,
+                "lastUpdateDate":null,
+                "description":null,
+                "createdByName":null,
+                "lastUpdatedByName":null,
+                "sitemapId":54,
+                "parentId":47,
+                "policyId":2,
+                "displayText":"zh-CN=数据字典;en-US=Registry",
+                "text":"数据字典",
+                "icon":"el-icon-set-up",
+                "orderNo":6,
+                "permissionCode":"Service$registerPropertyService$search",
+                "status":1,
+                "target":"_self",
+                "path":"/register",
+                "nodeLevel":2
+            }
+        ]
+    },
+    {
+        "createdBy":null,
+        "creationDate":null,
+        "lastUpdatedBy":null,
+        "lastUpdateDate":null,
+        "description":null,
+        "createdByName":null,
+        "lastUpdatedByName":null,
+        "sitemapId":171,
+        "parentId":0,
+        "policyId":2,
+        "displayText":"zh-CN=导入导出;en-US=My Import",
+        "text":"导入导出",
+        "icon":"el-icon-set-up",
+        "orderNo":2,
+        "permissionCode":"",
+        "status":1,
+        "target":"_self",
+        "path":"/import-export",
+        "nodeLevel":1,
+        "children":[
+            {
+                "createdBy":null,
+                "creationDate":null,
+                "lastUpdatedBy":null,
+                "lastUpdateDate":null,
+                "description":null,
+                "createdByName":null,
+                "lastUpdatedByName":null,
+                "sitemapId":172,
+                "parentId":171,
+                "policyId":2,
+                "displayText":"zh-CN=我的导入;en-US=My Import",
+                "text":"我的导入",
+                "icon":"el-icon-set-up",
+                "orderNo":0,
+                "permissionCode":"",
+                "status":1,
+                "target":"_self",
+                "path":"/import-list",
+                "nodeLevel":2
+            },
+            {
+                "createdBy":null,
+                "creationDate":null,
+                "lastUpdatedBy":null,
+                "lastUpdateDate":null,
+                "description":null,
+                "createdByName":null,
+                "lastUpdatedByName":null,
+                "sitemapId":173,
+                "parentId":171,
+                "policyId":2,
+                "displayText":"zh-CN=我的导出;en-US=My Export",
+                "text":"我的导出",
+                "icon":"el-icon-set-up",
+                "orderNo":1,
+                "permissionCode":"",
+                "status":1,
+                "target":"_self",
+                "path":"/export-list",
+                "nodeLevel":2
+            }
+        ]
+    }
+]
+
+
+console.log(flatData)
+console.log(treeData)
+
+
+// 三个步骤
+// 1. 出口条件： 
+// 2. 正在递归的情况
+// 3. 初始条件
+
+// 要做什么： 扁平结构处理为树结构，并且子级拥有其父级路径
+
+// let result = []
+// function t (data) {
+
+// 	parentId
+// 	propertyId
+
+// 	for (let i = 0; i < data.length; i++) {
+
+// 		let parentId = data.parentId
+// 		let currId = data.propertyId
+
+// 		// 当前属性找其子集，如果有则添加，如果没有就添加子集
+// 		let match = data.filter(item => item.propertyId === parentId)
+
+// 	}
+
+// 	return result
+// }
+
+// let asd = t(flatData)
+// console.log('asd', asd)
+
+
+
+
+// function fn(data, parentId) {
+
+//   let result = [], temp;
+
+//   for (let i = 0; i < data.length; i++) {
+//     if (data[i].parentId === parentId) {
+//      	let obj = {
+// 	        "propertyId": data[i].propertyId,
+// 	        "parentId": data[i].parentId,
+// 	        "parentName": data[i].parentName,
+// 	        "name": data[i].name,
+// 	        "value": data[i].value,
+// 	        "displayName": data[i].displayName,
+//      	}
+//      	// if (data[i].parentArr) {
+//      	// 	data[i].parentArr = [...data[i].parentArr, ...parentId]
+//      	// 	// data[i].parentArr.push(parentId)
+//      	// }else {
+//      	// 	data[i].parentArr = [parentId]
+//      	// 	// data[i].parentArr = [parentId]
+//      	// }
+//         temp = fn(data, data[i].propertyId);
+//         if (temp.length > 0) {
+//             obj.children = temp;
+//         }
+//         result.push(obj);
+//     }
+//   }
+
+//   return result;
+// }
+
+
+// 每一层 记录
+
+
+// fnFindMoalVal(val,key,deep,arr){
+//    const readNodes =  function(val,key,deep,arr,data=[]){
+//      for (let item of arr) {
+//              data.push(item)
+//              if (item[deep] && item[deep].length){
+//                readNodes(val,key,deep,item[deep],data)
+//              }
+//       }
+//       return data
+//    }
+//   // console.log(k(val,key,deep,arr));
+//    return readNodes(val,key,deep,arr).find(v=>v.id == val)
+//  }
+
+
+
+
+// console.time(1)
+// var result = fn(flatData, 0)
+// console.log('result', result)
+// console.timeEnd(1)
+
+
+
+/**
+** 获取父级结构
+*  关键key 为 id
+*  
+*/
+// export function getParent(data2, nodeId2) {
+//     var arrRes = [];
+
+//     if (data2.length == 0) {
+//         if (!!nodeId2) {
+//             arrRes.unshift(data2)
+//         }
+//         return arrRes;
+//     }
+
+//     let rev = (data, nodeId) => {
+//         for (var i = 0, length = data.length; i < length; i++) {
+//             let node = data[i];
+//             if (node.id == nodeId) {
+//                 arrRes.unshift(node)
+//                 rev(data2, node.parent_id);
+//                 break;
+//             }
+//             else {
+//                 if (!!node.children) {
+//                     rev(node.children, nodeId);
+//                 }
+//             }
+//         }
+//         return arrRes;
+//     };
+
+//     arrRes = rev(data2, nodeId2);
+    
+//     return arrRes;
+// }
+
+
+
+/**
+** 获取父级结构
+*  关键key 为 path
+*  
+*/
+// function getParent(data2 = [], nodeId2) {
+//     var arrRes = [];
+
+//     if (data2.length == 0) {
+//         if (!!nodeId2) {
+//             arrRes.unshift(data2)
+//         }
+//         return arrRes;
+//     }
+
+//     let rev = (data, nodeId) => {
+//         for (var i = 0, length = data.length; i < length; i++) {
+//             let node = data[i];
+//             if (node.sitemapId == nodeId) {
+//                 arrRes.unshift(node)
+//                 rev(data2, node.parentId);
+//                 break;
+//             }
+//             else {
+//                 if (!!node.children) {
+//                     rev(node.children, nodeId);
+//                 }
+//             }
+//         }
+//         return arrRes;
+//     };
+
+//     arrRes = rev(data2, nodeId2);
+    
+//     return arrRes;
+// }
+
+
+
+// function matchPath (tree, target) {
+// 	let result = []
+
+// 	if (!tree) return
+
+// 	for (let i = 0; i < tree.length; i++) {
+// 		let item = tree[i]
+// 		if (item.children && item.children.length) {
+// 			result = [...result, ...matchPath(item.children, target)]
+// 		}
+
+// 		if (item.path === target) {
+// 			result.push(item)
+// 			break
+// 		}
+// 	}
+
+
+// 	return result
+// }
+
+// var result = getParent(treeData, 49)
+// console.log('result', result)
+
+
+// var mat = matchPath(treeData, '/security')
+// console.log('mat', mat)
+
+
+let arrrrrr = [
+    {id: 1, name: '部门1', pid: 0},
+    {id: 2, name: '部门2', pid: 1},
+    {id: 3, name: '部门3', pid: 1},
+    {id: 4, name: '部门4', pid: 3},
+    {id: 5, name: '部门5', pid: 4},
+    {id: 6, name: '部门6', pid: 0},
+]
+
+// 无脑递归
+// const getChild = (data, result, pid) => {
+//     for (const i of data) {
+//         if (i.pid === pid) {
+//             const newItem = { ...i, children: []}
+//             result.push(newItem)
+//             getChild(data, newItem.children, i.id)
+//         }
+//     }
+// }
+
+// const arrToTree = (list, pid) => {
+//     let result = []
+//     getChild(list, result, pid)
+//     return result
+// }
+
+function arrToTree (data) {
+    const cmap = new Map(),result = []
+    for (const item of data) {
+        item.children = item.children || []
+        cmap.set(item.id, item)
+    }
+
+    for (const item of data) {
+        const parent = cmap.get(item.pid)
+        ;(parent ? parent.children : result).push(item)
+    }
+
+    return result
+}
+
+console.time('t')
+var s  = arrToTree(arrrrrr, 0)
+console.timeEnd('t')
+console.log('s', s)
+</script>
+	
+</body>
+</html>

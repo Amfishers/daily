@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>手写原生方法</title>
+</head>
+<body>
+	
+<script type="text/javascript">
+// new
+// call apply
+// bind
+// 防抖
+// 节流
+// 寄生组合继承
+
+
+function child (name) {
+	this.name = name
+}
+child.prototype.id = 99
+child.prototype.age = 99
+
+var xiaoming = new child('xiaoming')
+console.log('xiaoming - 1', xiaoming)
+
+function myNew (func) {
+	const obj = {}
+	if (func.prototype !== null) {
+		obj.__proto__ = func.prototype 
+	}
+	const Constru = Array.prototype.shift.call(arguments)
+
+	const ret = Constru.apply(obj, arguments)
+
+	if (typeof ret === 'object' || typeof ret === 'function' && ret !== null) {
+		return ret
+	}
+	return obj
+}
+
+var xiaobai = myNew(child, 'xiaobai')
+console.log('xiaobai', xiaobai)
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+
+        /**
+         * @param {string} s
+         * @return {boolean}
+         */
+        const isValid = function (s) {
+            const hashMap = {
+                '{': '}',
+                '[': ']',
+                '(': ')'
+            }
+            const exist = []
+            let result = true
+            for (let i = 0; i < s.length; i++) {
+                const item = s[i]
+                if (['{', '[', '('].includes(item)) {
+                    exist.push(item)
+                } else {
+                    const last = exist.pop()
+                    if (item !== hashMap[last]) {
+                        result = false
+                        break
+                    }
+                }
+
+            }
+
+            if (exist.length) return false
+            return result
+
+        }
+
+        const r = isValid('{[]}')
+        console.log('r', r)
+
+        // // 简化版本
+        // var isValid = function(s) {
+        //     const stack = [], 
+        //         map = {
+        //             "(":")",
+        //             "{":"}",
+        //             "[":"]"
+        //         };
+        //     for(const x of s) {
+        //         if(x in map) {
+        //             stack.push(x);
+        //             continue;
+        //         };
+        //         if(map[stack.pop()] !== x) return false;
+        //     }
+        //     return !stack.length;
+        // };
+
+    </script>
+</body>
+
+</html>
