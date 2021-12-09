@@ -1,11 +1,11 @@
 # daily
 暂时作为自己的日常练习以及博客记载之地
 
-# codegist 
+### codegist 
 常用代码块
 
-# exercise
+### exercise
 日常代码练习
 
-# leetcode
+### leetcode
 刷算法
