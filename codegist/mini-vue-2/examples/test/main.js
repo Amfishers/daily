@@ -3,16 +3,16 @@ import Vue from '../../core/index.js'
 const vue = new Vue({
   data: {
     title: 'users',
-    deep: {a: {b: {name: 'berwin'}}},
-    list: [{name: 'berwin', age: 22}]
+    deep: {a: {b: {name: 'echo'}}},
+    list: [{name: 'echo', age: 22}]
   }
 })
 
 window.vue = vue
 
-const unwatchList = vue.$watch('data.title', (newValue) => {
-    console.log('title: ', newValue)
-})
+// const unwatchList = vue.$watch('data.title', (newValue) => {
+//     console.log('title: ', newValue)
+// })
 // const unwatchList2 = vue.$watch('data.deep', (newValue) => {
 //     console.log('deep: ', newValue)
 // })
