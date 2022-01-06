@@ -15,45 +15,70 @@
             * @param {number[]} nums2
             * @return {number[]}
             */
+        // var intersect = function (nums1, nums2) {
+        //     let arr1Map = setHashObj(nums1)
+        //     let arr2Map = setHashObj(nums2)
+        //     let res = []
+
+        //     for (const k of arr1Map.keys()) {
+        //         const count1 = arr1Map.get(k)
+        //         const count2 = arr2Map.get(k)
+
+        //         if (count2) {
+        //             let min = Math.min(count1, count2)
+        //             if (min) {
+        //                 for (let x = 0; x < min; x++) {
+        //                     res.push(k)
+        //                 }
+        //             }
+        //         }
+        //     }
+
+        //     return res
+
+        // }
+
+        // function setHashObj(arr) {
+        //     const obj = new Map()
+
+        //     if (!arr || !Array.isArray(arr)) return obj
+
+        //     for (let i = 0; i < arr.length; i++) {
+        //         const ele = arr[i]
+        //         let val = obj.get(ele)
+        //         if (val) {
+        //             obj.set(ele, val + 1)
+        //         } else {
+        //             obj.set(ele, 1)
+        //         }
+        //     }
+
+        //     return obj
+        // }
+
+
+        // 使用排序方法
         var intersect = function (nums1, nums2) {
-            let arr1Map = setHashObj(nums1)
-            let arr2Map = setHashObj(nums2)
+            let arr1 = sortArr(nums1)
+            let arr2 = sortArr(nums2)
             let res = []
 
-            for (const k of arr1Map.keys()) {
-                const count1 = arr1Map.get(k)
-                const count2 = arr2Map.get(k)
-
-                if (count2) {
-                    let min = Math.min(count1, count2)
-                    if (min) {
-                        for (let x = 0; x < min; x++) {
-                            res.push(k)
-                        }
-                    }
+            for (let i = 0; i < arr1.length; i++) {
+                let num = arr1[i]
+                let arr2index = arr2.indexOf(num)
+                if (arr2index > -1) {
+                    res.push(num)
+                    arr2.splice(arr2index, 1)
                 }
             }
 
             return res
-
         }
 
-        function setHashObj(arr) {
-            const obj = new Map()
+        function sortArr(arr) {
+            if (!arr || !Array.isArray(arr)) return []
 
-            if (!arr || !Array.isArray(arr)) return obj
-
-            for (let i = 0; i < arr.length; i++) {
-                const ele = arr[i]
-                let val = obj.get(ele)
-                if (val) {
-                    obj.set(ele, val + 1)
-                } else {
-                    obj.set(ele, 1)
-                }
-            }
-
-            return obj
+            return arr.sort((a, b) => a - b)
         }
 
         // var a1 = [4, 9, 5]

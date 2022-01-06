@@ -29,9 +29,13 @@
 
 
 ### 思路
+使用Object或者Map存储
 - 使用Object Map 或者 Set 先把数组转化为对象，以数组值作为键，出现次数作为值。出现一次就记录为1，再次出现就++
 - 接着再循环处理后的其中一个对象，当前值如果在另一个对象存在，那么取当前值在两个对象中的最小值，然后 push 到输出的结果数组里面
 
+排序
+- 先将两个数组排序
+- 遍历其中一个数组，如果存在相同值，则存入结果中并且另外一个删除当前值即可
 
 ### 解题
 ```
@@ -126,6 +130,33 @@ function setHashObj(arr) {
     }
 
     return obj
+}
+
+```
+
+```
+// 使用排序方法
+var intersect = function (nums1, nums2) {
+    let arr1 = sortArr(nums1)
+    let arr2 = sortArr(nums2)
+    let res = []
+
+    for (let i = 0; i < arr1.length; i++) {
+        let num = arr1[i]
+        let arr2index = arr2.indexOf(num)
+        if (arr2index > -1) {
+            res.push(num)
+            arr2.splice(arr2index, 1)
+        }
+    }
+
+    return res
+}
+
+function sortArr(arr) {
+    if (!arr || !Array.isArray(arr)) return []
+    
+    return arr.sort((a, b) => a - b)
 }
 
 ```
