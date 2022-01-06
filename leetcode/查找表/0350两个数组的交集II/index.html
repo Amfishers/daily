@@ -20,9 +20,9 @@
             let arr2Map = setHashObj(nums2)
             let res = []
 
-            for (const k in arr1Map) {
-                if (k in arr2Map) {
-                    let min = Math.min(arr1Map[k], arr2Map[k])
+            for (const k of arr1Map.keys()) {
+                if (arr2Map.has(k)) {
+                    let min = Math.min(arr1Map.get(k), arr2Map.get(k))
                     if (min) {
                         for (let x = 0; x < min; x++) {
                             res.push(k)
@@ -36,16 +36,17 @@
         }
 
         function setHashObj(arr) {
-            const obj = {}
+            const obj = new Map()
 
             if (!arr || !Array.isArray(arr)) return obj
 
             for (let i = 0; i < arr.length; i++) {
                 const ele = arr[i]
-                if (ele in obj) {
-                    obj[ele]++
+                let val = obj.get(ele)
+                if (val) {
+                    obj.set(ele, val + 1)
                 } else {
-                    obj[ele] = 1
+                    obj.set(ele, 1)
                 }
             }
 
