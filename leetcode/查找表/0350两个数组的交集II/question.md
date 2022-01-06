@@ -35,6 +35,7 @@
 
 ### 解题
 ```
+// 对象方法
 /**
     * @param {number[]} nums1
     * @param {number[]} nums2
@@ -71,6 +72,56 @@ function setHashObj(arr) {
             obj[ele]++
         } else {
             obj[ele] = 1
+        }
+    }
+
+    return obj
+}
+
+```
+
+```
+// Map 方法
+/**
+    * @param {number[]} nums1
+    * @param {number[]} nums2
+    * @return {number[]}
+    */
+var intersect = function (nums1, nums2) {
+    let arr1Map = setHashObj(nums1)
+    let arr2Map = setHashObj(nums2)
+    let res = []
+
+    for (const k of arr1Map.keys()) {
+        const count1 = arr1Map.get(k)
+        const count2 = arr2Map.get(k)
+
+        if (count2) {
+            let min = Math.min(count1, count2)
+            if (min) {
+                for (let x = 0; x < min; x++) {
+                    res.push(k)
+                }
+            }
+        }
+    }
+
+    return res
+
+}
+
+function setHashObj(arr) {
+    const obj = new Map()
+
+    if (!arr || !Array.isArray(arr)) return obj
+
+    for (let i = 0; i < arr.length; i++) {
+        const ele = arr[i]
+        let val = obj.get(ele)
+        if (val) {
+            obj.set(ele, val + 1)
+        } else {
+            obj.set(ele, 1)
         }
     }
 

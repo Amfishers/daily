@@ -21,8 +21,11 @@
             let res = []
 
             for (const k of arr1Map.keys()) {
-                if (arr2Map.has(k)) {
-                    let min = Math.min(arr1Map.get(k), arr2Map.get(k))
+                const count1 = arr1Map.get(k)
+                const count2 = arr2Map.get(k)
+
+                if (count2) {
+                    let min = Math.min(count1, count2)
                     if (min) {
                         for (let x = 0; x < min; x++) {
                             res.push(k)
