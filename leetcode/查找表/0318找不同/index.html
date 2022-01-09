@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        /**
+         * @param {string} s
+         * @param {string} t
+         * @return {character}
+         */
+        // var findTheDifference = function (s, t) {
+        //     let mapS = charMap(s)
+        //     let mapT = charMap(t)
+
+        //     let targetMap = s.length > t.length ? mapS : mapT
+        //     let otherMap = mapS === targetMap ? mapT : mapS
+
+        //     for (const key in targetMap) {
+        //         if (targetMap[key] !== otherMap[key]) {
+        //             return key
+        //         }
+        //     }
+        // }
+
+        // function charMap(s) {
+        //     let map = {}
+        //     for (let i = 0; i < s.length; i++) {
+        //         let ele = s[i]
+        //         if (ele in map) {
+        //             map[ele] = map[ele] + 1
+        //         } else {
+        //             map[ele] = 1
+        //         }
+        //     }
+        //     return map
+        // }
+
+        // 求和
+        var findTheDifference = function (s, t) {
+            var ns = 0, nt = 0;
+            for (let i = 0; i < s.length; i++) {
+                ns += s[i].charCodeAt()
+            }
+            for (let i = 0; i < t.length; i++) {
+                nt += t[i].charCodeAt()
+            }
+            const res = Math.abs(ns - nt)
+            return String.fromCharCode(res)
+        }
+
+        var a = 'abasdasdsamocnvocvcd'
+        var b = 'abasdasdsamocnvaocvcd'
+        var s = findTheDifference(a, b)
+        console.log('s', s)
+
+    </script>
+</body>
+
+</html>
