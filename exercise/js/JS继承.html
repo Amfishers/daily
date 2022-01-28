@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS继承</title>
+</head>
+
+<body>
+    <script>
+        // function SuperType() {
+        //     this.property = true
+        //     this.name = ['1', '2', '3']
+        // }
+
+        // // 原型链继承
+
+        // SuperType.prototype.getSuperValue = function () {
+        //     return this.property
+        // }
+
+        // function SubType() {
+        //     this.subproperty = false
+        // }
+
+        // // 继承 SuperType
+        // SubType.prototype = new SuperType()
+        // SubType.prototype.getSubValue = function () {
+        //     return this.subproperty
+        // }
+
+
+        // function SunType() {
+        //     this.sunProperty = 1
+        // }
+
+        // SunType.prototype = new SubType()
+
+        // var instance = new SubType()
+
+        // var ans = new SunType()
+
+        // console.log(instance.getSuperValue()) // true
+
+        // 借用构造函数
+        // function SubType(name) {
+        //     SuperType.call(this)
+        // }
+        // var ins2 = new SubType()
+
+        // 组合继承
+        function SuperType(name) {
+            this.name = name
+            this.colors = ['red', 'blue', 'green']
+        }
+
+        SuperType.prototype.sayName = function () {
+            console.log(this.name)
+        }
+
+        function SubType(name, age) {
+            SuperType.call(this, name)
+            this.age = age
+        }
+
+        SubType.prototype = new SuperType()
+        SubType.prototype.sayAge = function () {
+            console.log(this.age)
+        }
+
+        var ins = new SubType('fisher', 18)
+        ins.colors.push('black')
+        console.log(ins.colors)
+        ins.sayName()
+        ins.sayAge()
+
+
+    </script>
+</body>
+
+</html>
