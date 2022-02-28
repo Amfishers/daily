@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // 第二版的代码
+        function objectFactory () {
+
+            var obj = new Object(), Constructor = [].shift.call(arguments)
+
+            obj.__proto__ = Constructor.prototype
+
+            var ret = Constructor.apply(obj, arguments)
+
+            return typeof ret === 'object' ? ret : obj
+
+        };
+
+        function Otaku (name, age) {
+            this.strength = 60
+            this.age = age
+
+            return 'handsome boy'
+        }
+
+        var person = new Otaku('Kevin', '18')
+
+        // var person = objectFactory(Otaku, 'Kevin', '18')
+
+        console.log(person.name) // undefined
+        console.log(person.habit) // undefined
+        console.log(person.strength) // 60
+        console.log(person.age) // 18
+
+    </script>
+</body>
+
+</html>
