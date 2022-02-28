@@ -10,11 +10,31 @@
 
 <body>
     <script>
-        console.log('foo', foo)
-        var foo = function (params) {
-            console.log('122323')
+        // console.log('foo', foo)
+        // var foo = function (params) {
+        //     console.log('122323')
+        // }
+        // console.log('foo', foo)
+
+        // function foo () {
+        //     return function () {
+        //         console.log(this)
+        //     }
+        // }
+
+        // foo()();
+
+        // 测试this
+        var value = 1
+
+        var foo = {
+            value: 2,
+            bar: function () {
+                return this.value
+            }
         }
-        console.log('foo', foo)
+        console.log((false || foo.bar)()) // 1
+
     </script>
 </body>
 
