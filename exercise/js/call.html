@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function a (name, age) {
+            this.name = name
+            this.age = age
+            console.log('name', this.name)
+            console.log('age', this.age)
+        }
+
+        var obj = {
+            name: 'fisher',
+            age: 18
+        }
+
+        Function.prototype.call2 = function (context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('Error')
+            }
+
+            var context = context || window
+            context.fn = this
+
+            var args = []
+            for (var i = 1, len = arguments.length; i < len; i++) {
+                args.push('arguments[' + i + ']')
+                // 
+                // 原本这里我是按照这样写的，但是 eval 是根据字符串然后执行的，如果按照 args.push(arguments[i]) 这样写，那么字符串执行的是真正的值后再执行。
+                // 这里的例子是 'context.fn(echo, 10)' 会报错 echo 未定义
+                // 
+            }
+            console.log('args', args)
+
+            var ret = eval('context.fn(' + args + ')')
+
+            delete context.fn
+
+            return ret
+        }
+
+        console.log(a.call2(obj, 'echo', 10))
+
+
+    </script>
+</body>
+
+</html>
