@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 实现第一版: 能够返回函数
+        // Function.prototype.bind2 = function (context) {
+        //     var self = this
+        //     return function () {
+        //         return self.apply(context)
+        //     }
+        //     // return () => self.apply(context)
+        // }
+
+        // var foo = {
+        //     value: 1
+        // }
+
+        // function bar () {
+        //     console.log(this.value)
+        // }
+
+        // var bindFoo = bar.bind2(foo)
+        // bindFoo()
+
+        // 第二版：在一版的基础上能够传参
+        // Function.prototype.bind2 = function (context) {
+        //     var self = this
+        //     var args = Array.prototype.slice.call(arguments, 1)
+
+        //     return function () {
+        //         var bindArg = Array.prototype.slice.call(arguments)
+        //         // return self.apply(context, args.concat(bindArg))  
+        //         // 不能 args.concat(arguments) 这么写，因为arguments为对象，所以concat的结果为['daisy',{...arguments}]，导致age传的值为 argument 对象
+        //         return self.apply(context, args.concat(bindArg))
+        //     }
+        // }
+
+        // var foo = {
+        //     value: 1
+        // }
+
+        // function bar (name, age) {
+        //     console.log(this.value)
+        //     console.log(name)
+        //     console.log(age)
+
+        // }
+
+        // var bindFoo = bar.bind2(foo, 'daisy')
+        // bindFoo('18');
+
+
+        // 第三版：bind 出来的函数能作为构造函数，但还可以访问bind时的原型
+
+
+        Function.prototype.bind2 = function (context) {
+            var self = this
+            var args = Array.prototype.slice.call(arguments, 1)
+
+            var fNop = function () { }
+            var fBound = function () {
+                var bindArgs = Array.prototype.slice.call(arguments)
+                return self.apply(this instanceof fBound ? this : context, args.concat(bindArgs))
+            }
+            fNop.prototype = this.prototype
+            fBound.prototype = new fNop()
+            return fBound
+        }
+
+        function objectFactory () {
+
+            var obj = new Object(), Constructor = [].shift.call(arguments)
+
+            obj.__proto__ = Constructor.prototype
+
+            var ret = Constructor.apply(obj, arguments)
+
+            return typeof ret === 'object' ? ret : obj
+
+        }
+
+
+        var value = 2
+
+        var foo = {
+            value: 1
+        }
+
+        function bar (name, age) {
+            this.habit = 'shopping'
+            console.log(this.value)
+            console.log(name)
+            console.log(age)
+        }
+
+        bar.prototype.friend = 'kevin'
+
+        var bindFoo = bar.bind2(foo, 'daisy')
+        var obj = new bindFoo('18')
+        var obj2 = bindFoo('18');
+        // obj 和 obj2 两种结果大有乾坤
+    </script>
+</body>
+
+</html>
