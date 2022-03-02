@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>斐波拉契数列</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>斐波拉契数列</title>
 </head>
+
 <body>
-<h1>斐波拉契数列</h1>
+    <h1>斐波拉契数列</h1>
 
-什么是斐波拉契数列，就是 1，1，2，3，5，8，13... 这样，观察数列可得，除了第一项，第二项，第三项是前一项和前一项的前一项之和
-也就是 f(n) = f(n-1) + f(n-2)
+    什么是斐波拉契数列，就是 1，1，2，3，5，8，13... 这样，观察数列可得，除了第一项，第二项，第三项是前一项和前一项的前一项之和
+    也就是 f(n) = f(n-1) + f(n-2)
 
-<pre>
+    <pre>
   function fibo(n) {
     if(n === 0 || n === 1) {
       return n
@@ -20,10 +22,9 @@
     return fibo(n-2) + fibo(n - 1)
   } 
 </pre>
-  
-<h2>如何使用缓存</h2>
+    <h2>如何使用缓存</h2>
 
-<pre>
+    <pre>
   使用闭包，利用数组做缓存。  又恰巧利用n作为索引关系，在数组中索引对应赋予值。
 
   var fibostorage = function() {
@@ -42,61 +43,87 @@
   }()
 </pre>
 
-<script>
-function fibo(n) {
-  if(n === 0 || n === 1) {
-    return n
-  }
+    <script>
+        function fibo (n) {
+            if (n === 0 || n === 1) {
+                return n
+            }
 
-  return fibo(n-2) + fibo(n - 1)
-}
+            return fibo(n - 2) + fibo(n - 1)
+        }
 
-var result = fibo(7)
+        var result = fibo(7)
 
-// console.log(result)
+        // console.log(result)
 
-
-// 带缓存
-var fibostorage = function() {
-  var hash = [0, 1]
-
-  return function(n) {
-    var result = hash[n]
-
-    if (typeof result !== 'number') {
-      result = fibostorage(n - 2) + fibostorage(n - 1)
-      hash[n] = result
-    }
-
-    return result
-  }
-}()
-
-// 第三种写法，另外的思路
-function fibostorage(n) {
-    let current = 0;
-    let next = 1;
-    for(let i = 0; i < n; i++){
-        [current, next] = [next, current + next];
-    }
-    return current;
-}
-
-function fibo(n) {
-  let curr = 0
-  let next = 1
-  for (let i = 0; i < n; i++) {
-    [curr, next] = [next, next+curr]
-  }
-  return
-}
-
-var resultStorage = fibostorage(7)
-
-console.log(resultStorage)
+        // 遍历方法
+        function fiboEach (n) {
+            if (n < 2) {
+                return n
+            }
+            var p = 0, q = 0, r = 1
+            for (let i = 2; i <= n; i++) {
+                p = q
+                q = r
+                r = p + q
+            }
+            return r
+        }
 
 
-</script>
+        // 带缓存
+        var fibostorage = function () {
+            var hash = [0, 1]
+
+            return function (n) {
+                var result = hash[n]
+
+                if (typeof result !== 'number') {
+                    result = fibostorage(n - 2) + fibostorage(n - 1)
+                    hash[n] = result
+                }
+
+                return result
+            }
+        }()
+
+        var fibostorage = function (n) {
+            var result = fibostorage.hash[n]
+            if (typeof result !== 'number') {
+                result = fibostorage(n - 1) + fibostorage(n - 2)
+                fibostorage.hash[n] = result
+            }
+            return result
+        }
+
+        fibostorage.hash = [0, 1]
+
+        // 第三种写法，另外的思路
+        // function fibostorage (n) {
+        //     let current = 0
+        //     let next = 1
+        //     for (let i = 0; i < n; i++) {
+        //         [current, next] = [next, current + next]
+        //     }
+        //     return current
+        // }
+
+        function fibo (n) {
+            let curr = 0
+            let next = 1
+            for (let i = 0; i < n; i++) {
+                [curr, next] = [next, next + curr]
+            }
+            return curr
+        }
+
+        var resultStorage = fibostorage(7)
+
+        console.log(resultStorage)
+
+
+    </script>
 
 </body>
+
 </html>
