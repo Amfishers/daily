@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 简单版
+        // function sub_curry (fn) {
+        //     return function () {
+        //         return fn()
+        //     }
+        // }
+
+        // function curry (fn, length) {
+        //     length = length || 4
+        //     return function () {
+        //         if (length > 1) {
+        //             return curry(sub_curry(fn), --length)
+        //         }
+        //         else {
+        //             return fn()
+        //         }
+        //     }
+        // }
+
+        // var fn0 = function () {
+        //     console.log(1)
+        // }
+
+        // var fn1 = curry(fn0)
+
+        // var s = fn1()()() // 1
+
+        // 第二版
+        function sub_curry (fn) {
+            var args = [].slice.call(arguments, 1)
+            return function () {
+                return fn.apply(this, args.concat([].slice.call(arguments)))
+            }
+        }
+
+        function curry (fn, length) {
+
+            length = length || fn.length
+
+            var slice = Array.prototype.slice
+
+            return function () {
+                if (arguments.length < length) {
+                    var combined = [fn].concat(slice.call(arguments))
+                    return curry(sub_curry.apply(this, combined), length - arguments.length)
+                } else {
+                    return fn.apply(this, arguments)
+                }
+            }
+        }
+
+        var fn = curry(function (a, b, c) {
+            return [a, b, c]
+        })
+
+        var a1 = fn('a')
+        var a2 = a1('b')
+        var a3 = a2('c')
+        console.log('a3', a3)
+
+
+
+        // a1执行的时候，也就是 fn('a') 这时候返回的是 curry(sub_curry.apply(this, combined), length - arguments.length)
+        //     主要分成两步： sub_curry.apply(this, combined) 还有 curry(x, length)
+        //     combined 包含着 [fn, 'a']，所以此时 sub_curry.apply(this, combined)执行之后得到
+        //     function() {
+        //         fn.apply(this, ['a', fn, 'a'])
+        //     }
+        //     得到这个结果之后，在执行 curry(x, length),再重新返回一个函数，此时 length 和 fn 都是a1执行后的值了
+
+
+        // fn("a", "b", "c") // ["a", "b", "c"]
+        // fn("a", "b")("c") // ["a", "b", "c"]
+        // fn("a")("b")("c") // ["a", "b", "c"]
+        // fn("a")("b", "c") // ["a", "b", "c"]
+
+
+        function add () {
+            // 第一次执行时，定义一个数组专门用来存储所有的参数
+            var _args = Array.prototype.slice.call(arguments)
+
+            // 在内部声明一个函数，利用闭包的特性保存_args并收集所有的参数值
+            var _adder = function () {
+                _args.push(...arguments)
+                return _adder
+            }
+
+            // 利用toString隐式转换的特性，当最后执行时隐式转换，并计算最终的值返回
+            _adder.toString = function () {
+                return _args.reduce(function (a, b) {
+                    return a + b
+                })
+            }
+            return _adder
+        }
+        var z = add(1)(2)(3)(4)(5)          // 15
+        console.log('z', z)
+    </script>
+</body>
+
+</html>
