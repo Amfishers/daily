@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function MyInstance (left, right) {
+            let leftValue = left.__proto__, rightValue = right.prototype
+            while (true) {
+                debugger
+                if (leftValue === rightValue) return true
+                if (leftValue === null) return null
+                leftValue = leftValue.__proto__
+            }
+        }
+
+        function Name (params) {
+            console.log('params', params)
+        }
+        var fisher = new Name('123')
+        // console.log(fisher instanceof Name)
+
+        console.log(MyInstance(fisher, Name))
+
+    </script>
+</body>
+
+</html>
