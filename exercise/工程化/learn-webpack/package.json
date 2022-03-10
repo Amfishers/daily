@@ -1,0 +1,19 @@
+{
+    "name": "learn-webpack",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "webpack ./app.js -o ./bundle.js --mode production",
+        "testloaderbuild": "webpack --config ./webpack.learn.loader.config.js",
+        "testasync": "webpack --config ./webpack.async.loader.config.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "webpack": "^5.70.0"
+    },
+    "devDependencies": {
+        "webpack-cli": "^4.9.2"
+    }
+}

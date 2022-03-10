@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        (() => {
+            var r = {
+                411: r => {
+                    r.exports = {
+                        name: "fisher"
+                    }
+                }
+            },
+                o = {}
+            function e (t) {
+                debugger
+                var s = o[t]
+                if (void 0 !== s) return s.exports
+                var n = o[t] = {
+                    exports: {}
+                }
+                return r[t](n, n.exports, e), n.exports
+            }
+
+            (() => {
+                const r = e(411)
+                console.log(r)
+            })()
+        })()
+
+    </script>
+
+</body>
+
+</html>

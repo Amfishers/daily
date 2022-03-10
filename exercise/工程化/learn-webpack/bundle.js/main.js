@@ -1,0 +1,1 @@
+(()=>{var r={411:r=>{r.exports={name:"fisher"}}},o={};function e(t){var s=o[t];if(void 0!==s)return s.exports;var n=o[t]={exports:{}};return r[t](n,n.exports,e),n.exports}(()=>{const r=e(411);console.log(r)})()})();
