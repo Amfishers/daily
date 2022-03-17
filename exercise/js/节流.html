@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #container {
+        width: 100%;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        color: #fff;
+        background-color: #444;
+        font-size: 30px;
+    }
+</style>
+
+<body>
+    <div id="container"></div>
+    <script>
+        var count = 1
+        var container = document.getElementById('container')
+
+        function getUserAction () {
+            container.innerHTML = count++
+        }
+
+        // container.onmousemove = getUserAction
+        // 
+        container.onmousemove = throttle(getUserAction, 1000)
+
+        // 移入就立刻出发，中途移开不触发
+        // function throttle (fn, wait) {
+        //     var prevTime = 0
+        //     return function () {
+        //         var context = this, arg = arguments
+        //         var now = Date.now()
+        //         if (now - prevTime > wait) {
+        //             fn.apply(context, arg)
+        //             prevTime = now
+        //         }
+        //     }
+        // }
+
+        function throttle (fn, wait) {
+            var prev = 0, timer
+            return function () {
+                var now = Date.now()
+                var context = this, args = arguments
+                if (!timer) {
+                    timer = setTimeout(() => {
+                        fn.apply(context, args)
+                        timer = null
+                    }, wait)
+                }
+
+            }
+        }
+
+        // 移入时不会立即执行，停止后依然会再执行一次
+        function throttle (fn, wait) {
+            var prev = 0, timer
+            return function () {
+                var context = this,
+                    args = arguments,
+                    now = Date.now
+
+                if (!timer) {
+                    timer = setTimeout(() => {
+                        fn.apply(context, args)
+                        timer = null
+                    }, wait)
+                }
+            }
+        }
+
+        // 移入立即执行，移开后还能执行一次
+        function throttle (fn, wait) {
+            var prev = 0, timer
+
+            return function () {
+                var now = Date.now(),
+                    context = this,
+                    args = arguments,
+
+                    payload = wait - (now - prev)
+                if (payload <= 0) {
+                    if (timer) {
+                        clearTimeout(timer)
+                        timer = n523ull
+                    }
+                    prev = now
+                    fn.apply(context, args)
+                } else if (!timer) {
+                    timer = setTimeout(() => {
+                        pre = 0
+                        timer = null
+                        fn.apply(context, args)
+                    }, wait)
+                }
+
+            }
+        }
+    </script>
+</body>
+
+</html>
