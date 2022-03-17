@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>debounce</title>
+</head>
+<style>
+    #container {
+        width: 100%;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+        color: #fff;
+        background-color: #444;
+        font-size: 30px;
+    }
+</style>
+
+<body>
+    <div id="container"></div>
+    <script>
+        var count = 1
+        var container = document.getElementById('container')
+
+        function getUserAction (e) {
+            console.log(this)
+            console.log(e)
+            container.innerHTML = count++
+        };
+
+        // container.onmousemove = getUserAction
+        // 第一版
+        // container.onmousemove = debounce1(getUserAction, 500)
+        // 第二版
+        container.onmousemove = debounce3(getUserAction, 500, true)
+
+        // 第一版
+        function debounce1 (fn, wait) {
+            var timer
+            return function () {
+                if (timer) clearTimeout(timer)
+                timer = setTimeout(fn, wait)
+            }
+        }
+
+        // 第二版, this 指向问题 和 参数问题
+        // this 指向问题
+        // 如果我们在 getUserAction 函数中 console.log(this)，在不使用 debounce 函数的时候，直接这么使用 container.onmousemove = getUserAction， this 的值为：
+        // <div id="container"></div>
+        // 参数问题
+        // 如果我们不使用 debouce 函数，参数这里 e 会打印 MouseEvent 对象，但是在我们实现的 debounce 函数中，却只会打印 undefined!
+        function debounce2 (fn, wait) {
+            var timer
+            return function () {
+                var self = this
+                var arg = arguments
+                if (timer) clearTimeout(timer)
+                timer = setTimeout(function () {
+                    fn.apply(self, arg)
+                }, wait)
+            }
+        }
+
+        // 第三版 立即执行
+        // 需求：我不希望非要等到事件停止触发后才执行，我希望立刻执行函数，然后等到停止触发 n 秒后，才可以重新触发执行。
+        function debounce3 (fn, wait, immediate) {
+            var timer
+            return function () {
+                var self = this
+                var arg = arguments
+                if (timer) clearTimeout(timer)
+
+                if (immediate) {
+                    var callNow = !timer
+                    timer = setTimeout(() => {
+                        timer = undefined
+                    }, wait)
+                    if (callNow) fn.apply(self, arg)
+                } else {
+                    timer = setTimeout(function () {
+                        fn.apply(self, arg)
+                    }, wait)
+                }
+            }
+        }
+
+        // 第四版 取消
+        // 我希望能取消 debounce 函数，比如说我 debounce 的时间间隔是 10 秒钟，immediate 为 true，这样的话，我只有等 10 秒后才能重新触发事件，
+        // 现在我希望有一个按钮，点击后，取消防抖，这样我再去触发，就可以又立刻执行
+        function debounce4 (fn, wait, immediate) {
+            var timer
+            var debounced = function () {
+                var self = this
+                var arg = arguments
+
+                if (timer) clearTimeout(timer)
+
+                if (immediate) {
+                    var applyNow = !timer
+                    timer = setTimeout(() => {
+                        timer = undefined
+                    }, wait)
+                    if (applyNow) fn.apply(self, arg)
+                } else {
+                    timer = setTimeout(() => {
+                        fn.apply(self, arg)
+                    }, wait)
+                }
+            }
+
+            debounced.cancel = function () {
+                clearTimeout(timer)
+                timer = undefined
+            }
+
+            return debounced
+        }
+
+
+    </script>
+</body>
+
+</html>
