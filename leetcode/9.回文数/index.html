@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9.回文数</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * @param {number} x
+         * @return {boolean}
+         */
+        var isPalindrome = function (x) {
+            const newNum = `${x}`.split('').reverse().join('')
+            return `${newNum}` === `${x}`
+        }
+
+        /**
+         * @param {number} x
+         * @return {boolean}
+         * 思路： 把 x 转化为字符串，for 循环取数量中间值，接着双指针，如果左右不相等，那么赋值result为false，然后退出循环。
+         */
+        var isPalindrome = function (x) {
+            if (x < 0) return false
+            x = x.toString()
+            let result = true
+            for (let i = 0, s = x.length - 1; i < Math.floor(x.length / 2); i++, s--) {
+                if (x[i] !== x[s]) {
+                    result = false
+                    break
+                }
+            }
+            return result
+        }
+
+        isPalindrome(9)
+    </script>
+</body>
+
+</html>
