@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>千分符</title>
+</head>
+
+<body>
+    <script>
+        let num = 239123348340.23422
+
+        // toLocaleString() 方法返回这个数字在特定语言环境下的表示字符串。
+        // function numFormat (num) {
+        //     num = Number(num)
+        //     // toLocaleString 两个参数： 第一个 locales 相当于设置国际化  第二个： options 设置显示的格式
+        //     // 注意： 使用默认格式的话小数点后面只能取3位
+        //     return num.toLocaleString()
+        // }
+
+        // 思路： 将数字转化为字符串，然后对 . 符号切分为左右结构
+        // 左边为对字符串进行切分之后，反转，然后循环只要是 % 3为0，并且不是第0个，因为 0 % 3 = 0，就添加 , 逗号。
+        // 然后再把数组反转，最后再拼接小数。返回结果
+        // function numFormat (num) {
+        //     if (!num) return 0
+        //     let [head, tail] = num.toString().split('.')
+        //     let lastNum = ''
+        //     let result = []
+
+        //     if (head) {
+        //         let newHead = head.split('')
+        //         newHead.reverse()
+        //         for (let i = 0; i < newHead.length; i++) {
+        //             if (i % 3 === 0 && i > 0) {
+        //                 result.push(',')
+        //             }
+        //             result.push(newHead[i])
+        //         }
+        //         if (result[result.length - 1] === ',') result.pop()
+        //         result.length && result.reverse()
+        //     }
+
+        //     if (tail && result.length) {
+        //         result = result.concat(['.'], tail)
+        //     }
+
+        //     return result.join('')
+        // }
+
+        function numFormat (num) {
+            // 不加g，这样就不用匹配到小数点
+            return num && num.toString().replace(/\d+/, function (n) {
+                // 前瞻断言
+                // 如果 + 换为 * 号，那么出来的结果小数点前会多了一个分号
+                return n.replace(/(\d)(?=(\d{3})+$)/g, '$1,')
+            })
+        }
+
+        var result = numFormat(num)
+        console.log('result', result)
+
+    </script>
+</body>
+
+</html>
