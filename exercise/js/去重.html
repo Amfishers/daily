@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [1, 2, 1, 4, 'asd', 1]
+        // 双循环
+        function unique (array) {
+            let res = []
+            for (let i = 0; i < array.length; i++) {
+                const outA = array[i]
+                let isIn = false
+                for (let x = 0; x < res.length; x++) {
+                    const inA = res[x]
+                    if (outA === inA) {
+                        isIn = true
+                        break
+                    }
+                }
+                if (!isIn) {
+                    res.push(outA)
+                }
+
+            }
+            return res
+        }
+
+        // indexOf
+        function unique (array) {
+            let result = []
+            for (let i = 0; i < array.length; i++) {
+                const e = array[i]
+                if (result.indexOf(e) === -1) {
+                    result.push(e)
+                }
+            }
+            return result
+        }
+
+        // 排序
+        function up (a, b) {
+            return a - b
+        }
+        function unique (array) {
+            let result = []
+            const arr = array.sort(up)
+            for (let i = 0; i < arr.length; i++) {
+                const curr = arr[i]
+                const next = arr[i + 1]
+                if (curr !== next) {
+                    result.push(curr)
+                }
+            }
+            return result
+        }
+
+        // 排序性能优化版
+        function unique (array) {
+            let result = []
+            const arr = array.sort(up)
+            let prev
+            for (let i = 0; i < arr.length; i++) {
+                const curr = arr[i]
+                if (!i || prev !== curr) {
+                    result.push(curr)
+                }
+                prev = curr
+            }
+            return result
+        }
+
+        // filter
+        function unique (array) {
+            return array.filter((item, index, arr) => arr.indexOf(item) === index)
+        }
+
+        // 键值对形式
+        function unique (array) {
+            let result = []
+            const obj = new Map()
+            for (let i = 0; i < array.length; i++) {
+                const curr = array[i]
+                if (!obj.has(curr)) {
+                    result.push(curr)
+                    obj.set(curr, 1)
+                }
+            }
+            return result
+        }
+
+        // Set 
+        function unique (array) {
+            // return Array.from(new Set(array))
+            return [...new Set(array)]
+        }
+
+        // ES6
+        function unique (arr) {
+            const seen = new Map()
+            return arr.filter((a) => !seen.has(a) && seen.set(a, 1))
+        }
+
+
+        var r = unique(arr)
+        console.log(r)
+    </script>
+</body>
+
+</html>
