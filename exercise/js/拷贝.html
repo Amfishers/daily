@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拷贝</title>
+</head>
+
+<body>
+    <script>
+        // function deepClone (obj) {
+        //     if (typeof obj !== 'object') return obj
+        //     var newObj = Array.isArray(obj) ? [] : {}
+        //     for (const key in obj) {
+        //         if (Object.hasOwnProperty.call(obj, key)) {
+        //             const el = obj[key]
+        //             newObj[key] = typeof el === 'object' ? deepClone(el) : el
+
+        //         }
+        //     }
+        //     return newObj
+        // }
+
+        function deepClone (obj) {
+            if (typeof obj !== 'object') return obj
+            var isArray = Array.isArray(obj)
+
+            var newObj = isArray ? [] : {}
+            for (const key in obj) {
+                newObj[key] = deepClone(obj[key])
+            }
+
+            return newObj
+        }
+
+        // 优化： 解决循环引用爆栈的问题
+        // 思路，使用 map 存储克隆对象，如果已经存储过就直接返回
+        function deepClone (obj, map = new Map()) {
+            if (typeof obj !== 'object') return obj
+            const isHash = map.get(obj)
+            if (isHash) return isHash
+
+            var newObj = Array.isArray(obj) ? [] : {}
+
+            map.set(obj, newObj)
+            for (const key in obj) {
+                newObj[key] = deepClone(obj[key], map)
+            }
+
+            return newObj
+        }
+
+        let test = {
+            age: undefined,
+            sex: Symbol('male'),
+            jobs: function () { },
+            name: 'fisher',
+            arr: [1, 2, 3, 8]
+        }
+        test.test = test
+
+        var result = deepClone(test)
+        console.log(result)
+    </script>
+</body>
+
+</html>
