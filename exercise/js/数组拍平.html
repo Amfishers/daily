@@ -64,25 +64,27 @@
 
 
         // 实现在原型链上面重写 flat
-        // Array.prototype.FakeFlat = function (num = 1) {
-        //     if (!Number(num) || num <= 0) {
-        //         return this
-        //     }
+        Array.prototype.FakeFlat = function (num = 1) {
+            if (!Number(num) || num <= 0) {
+                return this
+            }
 
-        //     let arr = this.slice()
+            let arr = this.slice()
 
-        //     while (num > 0) {
-        //         if (arr.some(item => Array.isArray(item))) {
-        //             arr = [].concat.call([], arr)
-        //         } else {
-        //             break
-        //         }
-        //         num--
-        //     }
+            while (num > 0) {
+                if (arr.some(item => Array.isArray(item))) {
+                    arr = [].concat.call([], arr)
+                } else {
+                    break
+                }
+                num--
+            }
 
-        //     return arr
-        // }
+            return arr
+        }
 
+        // 优化
+        // 根据 reduce 特性，可以忽略掉空位数组
         Array.prototype.FakeFlat = function (num = 1) {
             if (!Number(num) || Number(num) < 0) {
                 return this
