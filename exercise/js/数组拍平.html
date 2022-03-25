@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拍平数组</title>
+</head>
+
+<body>
+    <script>
+        var arr = [1, [2, [3, 4]]]
+
+        // ES6
+        // Array.prototype.flat()
+        function flatten (arr) {
+            return arr.flat(Infinity) // 表示无限层
+        }
+
+        // 递归
+        // 思路：新建空数组，循环， 如果是数组类型，就递归
+        function flatten (arr) {
+            let newArr = []
+            for (let i = 0; i < arr.length; i++) {
+                const curr = arr[i]
+                if (Array.isArray(curr)) {
+                    newArr = newArr.concat(flatten(curr))
+                } else {
+                    newArr.push(curr)
+                }
+            }
+            return newArr
+        }
+
+        // reduce 循环
+        function flatten (arr) {
+            return arr.reduce((acc, cur) => {
+                return acc.concat(Array.isArray(cur) ? flatten(cur) : cur)
+            }, [])
+        }
+
+        // 栈形式
+        function flatten (arr) {
+            let stack = [].concat(arr)  // 将数组拷贝至栈，直接赋值会改变原数组
+            let result = []
+            while (stack.length !== 0) {
+                let val = stack.pop()
+                if (Array.isArray(val)) {
+                    stack.push(...val)
+                } else {
+                    result.unshift(val)
+                }
+            }
+            return result
+        }
+
+        // 通过传入整数参数控制拍平层数
+        function flatten (arr, num = 1) {
+            return num > 0 ? arr.reduce((acc, cur) => {
+                return acc.concat(Array.isArray(cur) ? flatten(cur, num - 1) : cur)
+            }, []) : arr.slice()
+        }
+
+
+        // 实现在原型链上面重写 flat
+        // Array.prototype.FakeFlat = function (num = 1) {
+        //     if (!Number(num) || num <= 0) {
+        //         return this
+        //     }
+
+        //     let arr = this.slice()
+
+        //     while (num > 0) {
+        //         if (arr.some(item => Array.isArray(item))) {
+        //             arr = [].concat.call([], arr)
+        //         } else {
+        //             break
+        //         }
+        //         num--
+        //     }
+
+        //     return arr
+        // }
+
+        Array.prototype.FakeFlat = function (num = 1) {
+            if (!Number(num) || Number(num) < 0) {
+                return this
+            }
+            let arr = [].concat(this)
+            return num > 0
+                ? arr.reduce(
+                    (pre, cur) =>
+                        pre.concat(Array.isArray(cur) ? cur.FakeFlat(--num) : cur),
+                    []
+                )
+                : arr.slice()
+        }
+
+        var heavyArr = [1, 2, 3, , , ,]
+        console.log(heavyArr.FakeFlat())
+
+        console.log(flatten(arr)) // [1, 2, 3, 4]
+    </script>
+</body>
+
+</html>
