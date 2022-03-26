@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>204. 计数质数</title>
+</head>
+
+<body>
+    <script>
+        // 自己第一遍写的
+        /**
+         * @param {number} n
+         * @return {number}
+         */
+
+        //  这样写的问题：
+        //  对于每个数 xx，我们可以从小到大枚举 [2,x-1][2,x−1] 中的每个数 yy，判断 yy 是否为 xx 的因数。
+        //  但这样判断一个数是否为质数的时间复杂度最差情况下会到 O(n)，无法通过所有测试数据。
+
+        // var isPrimes = function (num) {
+        //     if (num === 0) return new Error('0 不是质数也不是合数')
+        //     if ([1, 2].includes(num)) return true
+        //     let result = true
+        //     for (let i = 2; i <= num - 1; i++) {
+        //         if (num % i === 0) {
+        //             result = false
+        //             break
+        //         }
+        //     }
+        //     return result
+        // }
+
+        // var countPrimes = function (n) {
+        //     var result = 0
+
+        //     for (let i = 2; i < n; ++i) {
+        //         result += isPrimes(i)
+        //     }
+
+        //     return result
+        // }
+
+        // 改进版
+        // 考虑到如果 y 是 x 的因数，那么 x/y 也必然是 x 的因数，因此我们只要校验 y 或者 x/y 即可。
+        // 而如果我们每次选择校验两者中的较小数，则不难发现较小数一定落在 [2,√￣x] 区间中，因此我们只需要枚举 [2,√￣x]  中的所有数即可，
+        // 这样单次检查的时间复杂度从 O(n) 降低至了 O([√￣n])
+
+        // const isPrime = (x) => {
+        //     for (let i = 2; i * i <= x; ++i) {
+        //         if (x % i == 0) {
+        //             return false
+        //         }
+        //     }
+        //     return true
+        // }
+
+        // var countPrimes = function (n) {
+        //     let ans = 0
+        //     for (let i = 2; i < n; ++i) {
+        //         ans += isPrime(i)
+        //     }
+        //     return ans
+        // }
+
+
+        var isPrimes = function (num) {
+            for (let i = 2; i * i <= num; i++) {
+                if (num % i === 0) {
+                    return false
+                }
+            }
+            return true
+        }
+
+        var countPrimes = function (n) {
+            var result = 0
+
+            for (let i = 2; i < n; i++) {
+                result += isPrimes(i)
+            }
+
+            return result
+        }
+        // 执行结果
+        // 433933 测试用例超时
+
+        // 比较好理解
+        // 因式分解4到8
+        //     4: 1 * 4 2 * 2 4 * 1
+        //     5: 1 * 5 sqrt(5) * sqrt(5) 5 * 1
+        //     6: 1 * 6 2 * 3 sqrt(6) * sqrt(6) 3 * 2 2 * 1
+        //     7：1 * 7 sqrt(7) * sqrt(7) 7 * 1
+        //     8：1 * 8 2 * 4 sqrt(8) * sqrt(8) 4 * 2 8 * 1
+        //     合数和质数的sqrt前后因式一样。以sqrt为界，只要能被前面数整除，该数不是质数
+
+        var isPrimes = function (num) {
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) {
+                    return false
+                }
+            }
+            return true
+        }
+
+        var countPrimes = function (n) {
+            var result = 0
+
+            for (let i = 2; i < n; i++) {
+                result += isPrimes(i)
+            }
+
+            return result
+        }
+
+        // 埃氏筛
+        // 解题思路
+        //     质数的倍数是合数。n以内，从2起，顺序标记质数的倍数为合数
+        //     每找到一个质数，结果+1。返回结果。
+        var countPrimes = function (n) {
+            for (var i = 2, r = 0, isPrime = Array(n).fill(true); i < n; i++)
+                if (isPrime[i]) {
+                    r++
+                    for (var j = 2 * i; j < n; j += i) isPrime[j] = false
+                }
+            return r
+        }
+
+        console.log(countPrimes(10))
+    </script>
+</body>
+
+</html>
