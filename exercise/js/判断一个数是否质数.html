@@ -11,6 +11,7 @@
 <body>
     <script>
         const countPrimes = (num) => {
+            if (num === 0) return new Error('0 不是质数也不是合数')
             if ([1, 2].includes(num)) return true
             let result = true
             for (let i = 2; i <= num - 1; i++) {
