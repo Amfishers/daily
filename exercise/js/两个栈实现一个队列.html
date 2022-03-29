@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两个栈实现一个队列</title>
+</head>
+
+<body>
+    <script>
+        // 
+        class MyQueue {
+            stack1 = []
+            stack2 = []
+
+            add (n) {
+                this.stack1.push(n)
+            }
+
+            delete () {
+                let res
+
+                // 将 stack1 所有元素移动到 stack2
+                while (this.stack1.length > 0) {
+                    const n = this.stack1.pop()
+                    if (n != null) {
+                        this.stack2.push(n)
+                    }
+                }
+
+                // stack2 pop
+                res = this.stack2.pop()
+
+                // 将 stack2 所有元素还给 stack1
+                while (this.stack2.length > 0) {
+                    const n2 = this.stack2.pop()
+                    if (n2 != null) {
+                        this.stack1.push(n2)
+                    }
+                }
+
+                return res
+            }
+
+            size () {
+                return this.stack1.length
+            }
+        }
+
+        // 性能分析
+        // 时间复杂度 add O(1) delele O(n)
+        // 空间复杂度 O(n)
+        var re = new MyQueue()
+        re.add(1)
+        re.add(2)
+        re.add(3)
+        console.log(re.size())
+        re.delete()
+        console.log(re.size())
+    </script>
+</body>
+
+</html>
