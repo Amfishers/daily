@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二叉树前中后序遍历</title>
+</head>
+
+<body>
+    <script>
+        // 前序遍历：根节点为前，所以顺序是 root  left right
+        // 中序遍历：根节点在中间，所以顺序是 left root right
+        // 后续遍历：根节点在最后，所以顺序是 left right root
+        // 例如下面一颗树：
+        // 
+        //        5
+        //       / \
+        //      3   7
+        //     / \ / \
+        //    2  4 6  8
+        const bst = {
+            value: 5,
+            left: {
+                value: 3,
+                left: {
+                    value: 2,
+                    left: null,
+                    right: null
+                },
+                right: {
+                    value: 4,
+                    left: null,
+                    right: null,
+                }
+            },
+            right: {
+                value: 7,
+                left: {
+                    value: 6,
+                    left: null,
+                    right: null
+                },
+                right: {
+                    value: 8,
+                    left: null,
+                    right: null
+                }
+            }
+        }
+        // 前序遍历
+        function preOrderTraverse (node) {
+            if (node === null) return
+            console.log(node.value)
+            preOrderTraverse(node.left)
+            preOrderTraverse(node.right)
+        }
+
+        // 中序遍历
+        function inOrderTraverse (node) {
+            if (node === null) return
+            inOrderTraverse(node.left)
+            console.log(node.value)
+            inOrderTraverse(node.right)
+        }
+
+        // 后序遍历
+        function postOrderTraverse (node) {
+            if (node === null) return
+            postOrderTraverse(node.left)
+            postOrderTraverse(node.right)
+            console.log(node.value)
+        }
+
+        console.log(preOrderTraverse(bst))
+    </script>
+</body>
+
+</html>
