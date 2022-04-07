@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>链表实现队列</title>
+</head>
+
+<body>
+    <script>
+        const bst = {
+
+        }
+
+        class MyQueue {
+            head = null
+            tail = null
+            len = 0
+
+            // 入队
+            add (n) {
+                const node = {
+                    value: n,
+                    next: null
+                }
+
+                if (!this.head) {
+                    this.head = node
+                }
+
+                const tail = this.tail
+                if (tail) {
+                    tail.next = node
+                }
+                this.tail = node
+
+                this.len++
+            }
+
+            delete () {
+                if (!this.head) return null
+                if (!this.len) return null
+
+                const res = this.head
+
+                // 重新指向 head
+                this.head = res.next
+
+                this.len--
+                return res.value
+            }
+
+            getLength () {
+                return this.len
+            }
+        }
+
+        const nLink = new MyQueue()
+        nLink.add(100)
+        nLink.add(2)
+        nLink.add(3)
+        console.log(nLink.delete())
+
+        // 性能测试
+
+        // 链表入列出列
+        let t1 = new MyQueue()
+        console.time('t1')
+        for (let index = 0; index < 10000000; index++) {
+            t1.add(index)
+        }
+
+        for (let z = 0; z < 10000000; z++) {
+            t1.delete()
+        }
+        console.timeEnd('t1')
+
+        // 数组入列出列
+        console.time('t2')
+        let t2 = []
+        for (let z = 0; z < 10000000; z++) {
+            t2.push(z)
+        }
+
+        for (let v = 0; v < 10000000; v++) {
+            t2.unshift()
+        }
+        console.timeEnd('t2')
+
+
+    </script>
+</body>
+
+</html>
