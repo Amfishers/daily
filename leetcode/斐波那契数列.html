@@ -72,31 +72,31 @@
 
 
         // 带缓存
-        var fibostorage = function () {
-            var hash = [0, 1]
+        // var fibostorage = function () {
+        //     var hash = [0, 1]
 
-            return function (n) {
-                var result = hash[n]
+        //     return function (n) {
+        //         var result = hash[n]
 
-                if (typeof result !== 'number') {
-                    result = fibostorage(n - 2) + fibostorage(n - 1)
-                    hash[n] = result
-                }
+        //         if (typeof result !== 'number') {
+        //             result = fibostorage(n - 2) + fibostorage(n - 1)
+        //             hash[n] = result
+        //         }
 
-                return result
-            }
-        }()
+        //         return result
+        //     }
+        // }()
 
-        var fibostorage = function (n) {
-            var result = fibostorage.hash[n]
-            if (typeof result !== 'number') {
-                result = fibostorage(n - 1) + fibostorage(n - 2)
-                fibostorage.hash[n] = result
-            }
-            return result
-        }
+        // var fibostorage = function (n) {
+        //     var result = fibostorage.hash[n]
+        //     if (typeof result !== 'number') {
+        //         result = fibostorage(n - 1) + fibostorage(n - 2)
+        //         fibostorage.hash[n] = result
+        //     }
+        //     return result
+        // }
 
-        fibostorage.hash = [0, 1]
+        // fibostorage.hash = [0, 1]
 
         // 第三种写法，另外的思路
         // function fibostorage (n) {
@@ -108,20 +108,46 @@
         //     return current
         // }
 
-        function fibo (n) {
-            let curr = 0
-            let next = 1
-            for (let i = 0; i < n; i++) {
-                [curr, next] = [next, next + curr]
+        // function fibo (n) {
+        //     let curr = 0
+        //     let next = 1
+        //     for (let i = 0; i < n; i++) {
+        //         [curr, next] = [next, next + curr]
+        //     }
+        //     return curr
+        // }
+
+        // var resultStorage = fibostorage(7)
+
+        // console.log(resultStorage)
+
+        // update 使用新的缓存方法
+        const fibostorage = (n) => {
+            const memo = [0, 1, 1]
+            const fibonacci = (n) => {
+                if (memo[n] != null) return memo[n]
+                return memo[n] = fibonacci(n - 1) + fibonacci(n - 2)
             }
-            return curr
+            return fibonacci(n)
         }
 
-        var resultStorage = fibostorage(7)
+        console.log(fibostorage(50))
 
-        console.log(resultStorage)
+        function fiboEach (n) {
+            if (n < 1) return 0
+            if (n < 2) return 1
 
+            let next = 0, curr = 0, sum = 1
 
+            for (let i = 2; i <= n; i++) {
+                curr = sum
+                next = curr
+                sum = next + curr
+            }
+            return sum
+        }
+
+        console.log('fiboEach', fiboEach(3))
     </script>
 
 </body>
