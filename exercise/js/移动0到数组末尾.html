@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>移动0到数组末尾</title>
+</head>
+
+<body>
+    <script>
+        // 传统思想
+        // function moveZero (arr) {
+        //     const length = arr.length
+        //     if (!length) return
+
+        //     let zeroLength = 0
+        //     for (let i = 0; i < length - zeroLength; i++) {
+        //         if (arr[i] === 0) {
+        //             arr.push(0)
+        //             arr.splice(i, 1)
+        //             // 删除 0 之后，指针要重新指回前面一位，
+        //             // 因为数组长度被改变了， push 之后，原数组增加，但是此时的i计算的还是原数组的下标
+        //             // 因此我们需要手动改一下 i 的指向
+        //             i--
+        //             zeroLength++
+        //         }
+
+        //     }
+        // }
+
+        // 双指针
+        // - 定义 j 指向第一个 0，i 指向 j 后面的第一个非 0
+        // - 交换 i 和 j 的值，继续向后移动
+        // - 只遍历一次，所以时间复杂度是 O(n)
+        function moveZero (arr) {
+            if (!arr.length) return
+
+            let i, j = -1
+            for (i = 0; i < arr.length; i++) {
+                debugger
+                // 第一个
+                if (arr[i] === 0 && j < 0) {
+                    j = i
+                }
+
+                if (arr[i] !== 0 && j >= 0) {
+                    const n = arr[i]
+                    arr[i] = arr[j]
+                    arr[j] = n
+
+                    // 因为 j 指向0，而这个条件是 arr[i] !== 0 才进入
+                    // 假设第一种情况： [1,0,3,2] 此时 j = 1；i=2，互换之后 [1,3,0,2] 此时 j 仍指向 1，非零跟零相邻，所以互换位置之后 j++
+                    // 第二种情况: [1,0,0,0,3,2] 此时 j = 1；i=4，互换之后 [1,3,0,0,0,2] 此时 j++ 为 2，还是为 0，因为进入这里的条件是 arr[i] !== 0
+                    j++
+                }
+            }
+        }
+
+        var arr = [1, 2, 0, 0, 2, 3, 0, 1]
+        moveZero(arr)
+        console.log('arr', arr)
+
+
+    </script>
+</body>
+
+</html>
