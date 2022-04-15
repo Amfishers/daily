@@ -40,18 +40,26 @@
                     countLength++
                 }
 
+                // 不相等，或者 i 到了字符串的末尾
+                // i === length - 1 考虑的是： 例如‘asaaccczzzzzz’ 遍历到末尾，走不到str[i] !== str[j]，所以无法将最后的值赋给 res
+                // if (i < length - 1)  与 i === length - 1 一定要同时加，不然会一直循环，为什么？
+                // 因为i === length - 1所以到了倒数第一位也进入这个判断，在这里 i = 12 会进入下面这个 if 逻辑
+                // 然后再下一层 if 没有进入逻辑，接着直接 j = i 然后 i--，这样 i = 11，但是for 循环里面又运行 i++
+                // 所以 i 一直等于12，所以无限循环
                 if (str[i] !== str[j] || i === length - 1) {
+                    debugger
                     if (countLength > res.length) {
                         res.char = str[j]
                         res.length = countLength
                     }
 
                     countLength = 0
-
-                    if (i < length - 1) {
-                        j = i
-                        i--
-                    }
+                    j = i
+                    i--
+                    // if (i < length - 1) {
+                    //     j = i
+                    //     i--
+                    // }
                 }
             }
             return res
