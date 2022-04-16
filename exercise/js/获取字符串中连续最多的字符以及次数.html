@@ -54,12 +54,11 @@
                     }
 
                     countLength = 0
-                    j = i
-                    i--
-                    // if (i < length - 1) {
-                    //     j = i
-                    //     i--
-                    // }
+
+                    if (i < length - 1) {
+                        j = i
+                        i--
+                    }
                 }
             }
             return res
