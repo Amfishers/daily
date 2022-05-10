@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分片上传</title>
+</head>
+
+<body>
+    上传：
+    <input type="file" id="input">
+    <br>
+    <button id="btn">上传</button>
+
+    <script>
+        const btn = document.getElementById('btn')
+        const file = document.getElementById('input')
+
+        btn.addEventListener('click', upload)
+
+
+        /**
+         * 分片上传思路
+         *  1. 定义 index 用来记录分片上传索引 和 chunkSplice 每次分片大小  
+         *  2. 新建 start 根据 index 和 chunkSplice 来识别分片的起始位置
+         *  3. 利用 slice 取出分片部分，然后用 new File([blob], fileName) 来 append 进 FormData 内容
+         *  4. 每次上传完成之后回调进行递归，记得递归要设置结束条件，也就是起始位置超过 file.size
+         */
+
+        //  思考1: 如果遇到中途上传失败，下次上传如何从上一次断开的位置上传？
+
+        let index = 0, chunkSplice = 1024
+        function upload () {
+            const files = file.files[0]
+            const size = files.size
+            const [fileName, ext] = files.name.split('.')
+
+            // 设置分片起始位置
+            let start = index * chunkSplice
+            // 递归结束条件
+            if (start > size) return
+            // 如果超出最大值，则取最大值
+            const maxSize = start + chunkSplice > file.size ? file.size : start + chunkSplice
+            // 取出分片部分
+            const blob = files.slice(start, maxSize)
+
+            let formData = new FormData()
+            const newFile = new File([blob], `${fileName}-${index}.${ext}`)
+            formData.append('file', newFile)
+
+            fetch('/upload', {
+                method: 'post',
+                body: formData
+            }).then(() => {
+                index++
+                upload()
+            })
+        }
+    </script>
+</body>
+
+</html>
