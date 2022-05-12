@@ -14,9 +14,12 @@
     <br>
     <button id="btn">上传</button>
 
+    <button id="po">post 数据</button>
+
     <script>
         const btn = document.getElementById('btn')
         const file = document.getElementById('input')
+
 
         btn.addEventListener('click', upload)
 
@@ -59,6 +62,19 @@
                 upload()
             })
         }
+
+
+
+        po.addEventListener('click', () => {
+            let fd = new FormData()
+            fd.append('name', 'fisher')
+
+            const xhr = new XMLHttpRequest()
+            xhr.open('POST', '/pageUnload')
+            xhr.send({ name: 'asdasd' })
+        })
+
+        // navigator.sendBeacon('/pageUnload', data);
     </script>
 </body>
 
