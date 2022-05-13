@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>取页面用得前3多的标签</title>
+</head>
+
+<body>
+    <a></a>
+    <a></a>
+    <a></a>
+    <a></a>
+    <b></b>
+    <b></b>
+    <b></b>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <em></em>
+    <em></em>
+    <em></em>
+    <em></em>
+    <em></em>
+    <em></em>
+    <em></em>
+    <em></em>
+    <em></em>
+    <em></em>
+    <em></em>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+
+
+    <script>
+        let nodeList = [...document.querySelectorAll('*')]
+
+        let tagNameList = {}
+
+        for (let i = 0; i < nodeList.length; i++) {
+            const item = nodeList[i]
+            const { tagName } = item
+            tagNameList[tagName] = (tagNameList[tagName] || 0) + 1
+        }
+        debugger
+        let sorted = Object.entries(tagNameList).sort((a, b) => b[1] - a[1])
+
+        const topParam = 3
+
+        const result = sorted.slice(0, topParam).map(i => i[0])
+        console.log('result', result)
+    </script>
+</body>
+
+</html>
