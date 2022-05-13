@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>查询 1-max 的所有对称数（数组反转）</title>
+</head>
+
+<body>
+    <script>
+        function findPalindromeNumbers1 (max) {
+            const res = []
+            if (max <= 0) return res
+
+            for (let i = 1; i < max; i++) {
+                // 转换为字符串，转换为数组，再反转，再比较
+                const s = `${i}`
+                if (s === s.split('').reverse().join('')) {
+                    res.push(i)
+                }
+            }
+
+            return res
+        }
+
+
+        const result = findPalindromeNumbers1(100)
+        console.log('result', result)
+
+    </script>
+</body>
+
+</html>
