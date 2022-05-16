@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旋转数组</title>
+</head>
+
+<body>
+    <script>
+        // 把 pop掉的 unshift 进来
+        let rorateArr = (arr, k) => {
+            let newArr = arr.slice()
+            if (!k || !newArr.length) return newArr
+
+            for (let i = 0; i < k; i++) {
+                newArr.unshift(newArr.pop())
+            }
+            return newArr
+        }
+
+        // 拼接
+        let rorateArr2 = (arr, k) => {
+            let len = arr.length
+            if (!k || len === 0) return arr
+            const step = Math.abs(k % len)
+
+            return [].concat(arr.slice(-step), arr.slice(0, len - step))
+        }
+
+        const a = [1, 2, 3, 4, 5, 6, 7]
+
+        console.log(rorateArr2(a, 3))
+
+    </script>
+</body>
+
+</html>
