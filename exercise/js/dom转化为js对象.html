@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <p>1</p>
+        <p>2323</p>
+        <div>asdji
+            <p>aa</p>
+            <div>sds
+                <span>asdasd</span>
+                <a>z</a>
+                <b>sdsd</b>
+                <span>asdad</span>
+            </div>
+            <div>asdd</div>
+        </div>
+        <p>sdsd</p>
+    </div>
+    <p>sdsd</p>
+    <span>sdasd</span>
+    <p>a
+    <p>sd</p>
+    </p>
+
+
+    <script>
+        function dom2obj (node, res) {
+            if (!node) return res
+            if (node.nodeType === 1) {
+                let temp = {}
+                temp['type'] = node.tagName
+                res.push(temp)
+                if (node.childNodes) {
+                    temp['children'] = []
+                    const childNodes = Array.from(node.childNodes)
+                    for (let i = 0; i < childNodes.length; i++) {
+                        const curr = childNodes[i]
+                        dom2obj(curr, temp['children'])
+                    }
+                }
+            }
+        }
+
+        var res = []
+        const wrap = Array.from(document.getElementsByTagName('html'))
+        dom2obj(wrap[0], res)
+        console.log(res)
+
+    </script>
+</body>
+
+</html>
