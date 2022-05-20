@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>offsetHeight</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #f1f1f1;
+        }
+
+        #container {
+            width: 300px;
+            height: 200px;
+            padding: 20px;
+            margin: 30px;
+            border: 5px solid #ccc;
+            box-sizing: border-box;
+            overflow: auto;
+            background-color: #fff;
+        }
+
+        #content {
+            width: 600px;
+            height: 500px;
+            background-color: #f1f1f1;
+            display: inline-block;
+        }
+
+        #wrap {
+            width: 100px;
+            /* height: 100px; */
+            /* 用于Width水平方向加的 */
+            padding-left: 50px;
+            padding-right: 40px;
+            border: solid;
+            border-left-width: 35px;
+            border-right-width: 25px;
+            /* 用于Height垂直方向加的 */
+            padding-top: 30px;
+            padding-bottom: 20px;
+            border-top-width: 15px;
+            border-bottom-width: 5px;
+            /* 设置了overflow */
+            overflow-y: scroll;
+        }
+
+        #pos {
+            width: 100px;
+            height: 100px;
+            padding: 4px;
+            border: 2px solid #ccc;
+            margin: 5px;
+            position: relative;
+        }
+
+        #op {
+            /* position: absolute;
+            top: 0;
+            left: 20px; */
+            width: 50px;
+            height: 50px;
+            background-color: #0cc;
+            padding: 1px;
+            border: 2px solid yellow;
+            margin: 3px;
+        }
+
+        #ap {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>offsetHeight</p>
+
+    <div id="container">
+        <div id="content">
+            <p id="text">offsetHeight scrollHeight clientHeight 区别</p>
+        </div>
+    </div>
+
+    <div id="wrap">
+        <div style="height: 200px;">
+            <p>撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的撒打算大的
+            </p>
+        </div>
+    </div>
+
+    <div id="pos">
+        <div id="op">
+            <div id="ap"></div>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('container')
+        console.log('offsetHeight', container.offsetHeight)
+        console.log('offsetWidth', container.offsetWidth)
+        console.log('clientWidth', container.clientWidth)
+        console.log('clientHeight', container.clientHeight)
+        console.log('scrollWidth', container.scrollWidth)
+        console.log('scrollHeight', container.scrollHeight)
+
+
+        // scrollTop scrollLeft 需滚动之后获取
+
+        const wrap = document.getElementById('wrap')
+        console.log('wrap - scrollHeight', wrap.scrollHeight)
+        console.log('wrap - clientHeight', wrap.clientHeight)
+
+        // offsetParent
+        // 所取元素父级无css定位（position为absolute/relative）则offsetParent取body
+        const cont = document.getElementById('text')
+        console.log('offsetParent', cont.offsetParent)
+        // 所取元素父级有css定位，则取父级
+        // 取到父级有定位的
+        const op = document.getElementById('ap')
+        console.log('ap - offsetParent', op.offsetParent)
+
+    </script>
+</body>
+
+</html>
