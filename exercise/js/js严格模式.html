@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        'use strict'
+        var x = 10
+        // 有自己作用域
+        // 性能不好
+        eval(`var x = 20; console.log('in eval', x)`)
+        console.log('out eval', x)
+
+        // 防止 thi 指向window
+        function foo () {
+            console.log('this', this)  // undefined
+        }
+        foo()
+
+
+        // 防止函数参数重名
+        // Uncaught SyntaxError: Duplicate parameter name not allowed in this context 
+        function fu (x, x, y) {
+            console.log(x, x, y)
+        }
+        fu(1, 2, 3)
+    </script>
+</body>
+
+</html>
