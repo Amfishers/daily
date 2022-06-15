@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实现一个 LazyMan</title>
+</head>
+
+<body>
+    <script>
+        // 要求：
+        // - 支持 sleep 和 eat 两个方法
+        // - 支持链式调用
+
+        // 示例：
+        // const me = new LazyMan('fisher')
+        // me.eat('苹果').eat('香蕉').sleep(5).eat('葡萄')
+
+        // // 'fisher eat 苹果'
+        // // 'fisher eat 香蕉'
+        // // (等待5s)
+        // // 'fisher eat 葡萄'
+
+        // 思路：
+        //     链式调用
+        //     处理好异步
+        //     自建队列结构，还有公共方法 next ，每执行完一个函数之后再进行 next
+
+
+        class LazyMan {
+            constructor(name = 'fisher') {
+                this.tasks = []
+                this.name = name
+
+                setTimeout(() => {
+                    this.next()
+                })
+            }
+
+            next () {
+                if (!this.tasks.length) return
+
+                const task = this.tasks.shift()
+                task && task()
+            }
+
+            eat (food) {
+                const task = () => {
+                    console.info(`${this.name} eat ${food}`)
+                    this.next()
+                }
+
+                this.tasks.push(task)
+
+                return this
+            }
+
+            sleep (time) {
+                const task = () => {
+                    setTimeout(() => {
+                        console.info(`${this.name} sleep ${time} seconds`)
+                        this.next()
+                    }, time * 1000)
+                }
+
+                this.tasks.push(task)
+
+                return this
+            }
+
+        }
+
+        const fisher = new LazyMan('fisher')
+
+        fisher.eat('1').eat(2).sleep(5).eat(9).eat(10).sleep(6)
+
+    </script>
+</body>
+
+</html>
