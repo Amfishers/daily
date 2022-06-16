@@ -1,84 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
+
 <body>
-	
-<script type="text/javascript">
-const data = [
-    {
-        name: 'a',
-        children: [
-            { name: 'b', children: [{ name: 'e' }] },
-            { name: 'c', children: [{ name: 'f' }] },
-            { name: 'd', children: [{ name: 'g' }] },
-        ],
-    },
-    {
-        name: 'a2',
-        children: [
-            { name: 'b2', children: [{ name: 'e2' }] },
-            { name: 'c2', children: [{ name: 'f2' }] },
-            { name: 'd2', children: [{ name: 'g2' }] },
-        ],
-    }
-]
+
+    <script type="text/javascript">
+        const data = [
+            {
+                name: 'a',
+                children: [
+                    { name: 'b', children: [{ name: 'e' }] },
+                    { name: 'c', children: [{ name: 'f' }] },
+                    { name: 'd', children: [{ name: 'g' }] },
+                ],
+            },
+            {
+                name: 'a2',
+                children: [
+                    { name: 'b2', children: [{ name: 'e2' }] },
+                    { name: 'c2', children: [{ name: 'f2' }] },
+                    { name: 'd2', children: [{ name: 'g2' }] },
+                ],
+            }
+        ]
+
+        function deepFirst (data, cindex) {
+            const res = []
+            data.forEach(item => {
+                const childIndex = cindex ? `${cindex}-${item.name}` : item.name
+                item.name && res.push({
+                    name: item.name,
+                    cindex: childIndex
+                })
+                item.children && res.push(deepFirst(item.children, childIndex))
+            })
+            return res
+        }
+
+        // console.log('deepFirst', deepFirst(data))
+
+        function breadFirst (data) {
+            const res = []
+            const backup = data
+            while (backup.length > 0) {
+                [...backup].forEach(item => {
+                    const childIndex = item.cindex ? `${item.cindex}-${item.name}` : item.name
+                    item.name && res.push({
+                        name: item.name,
+                        cindex: childIndex
+                    })
+                    backup.shift()
+                    if (item.children) {
+                        const child = item.children.map(i => {
+                            return {
+                                ...i,
+                                cindex: childIndex
+                            }
+                        })
+                        backup.push(...child)
+                    }
+                })
+            }
+            return res
+        }
+
+        // console.log('breadFirst', breadFirst(data))
+
+        // 将各个name合并为字符串并用逗号隔开
+
+        // 深度优先 - 1
+        function getName (data) {
+            const result = []
+            data.forEach(item => {
+                item.name && result.push(item.name)
+                item.children && result.push(getName(item.children))
+            })
+            return result.join(',')
+        }
+        //  深度优先 - 2
+        function getName2 (data) {
+            const result = []
+            data.forEach(item => {
+                const emap = (emapData) => {
+                    result.push(emapData.name)
+                    emapData.children && emapData.children.forEach(child => emap(child))
+                }
+                emap(item)
+            })
+            return result.join(',')
+        }
+
+        // 深度优先 - 3
+        // 不使用递归，使用栈结构
+        function getName3 (data) {
+            const result = [...data]
+
+            while (result.length > 0) {
+                const curr = result.pop() // 出栈
+
+                if (curr == null) break
+                console.log(curr)
+
+                const child = curr.children
+                if (child && child.length > 0) {
+                    Array.from(child).reverse().forEach(item => result.push(item))
+                }
+            }
+            return result
+        }
 
 
-// 将各个name合并为字符串并用逗号隔开
+        console.time('getName1')
+        const s = getName(data)
+        console.timeEnd('getName1')
 
-// 深度优先 - 1
-function getName (data) {
-    const result = []
-    data.forEach(item => {
-    	item.name && result.push(item.name)
-    	item.children && result.push(getName(item.children))
-    })
-    return result.join(',')
-}
-//  深度优先 - 2
-function getName2 (data) {
-	const result = []
-	data.forEach(item => {
-		const emap = (emapData) => {
-			result.push(emapData.name)
-			emapData.children && emapData.children.forEach(child => emap(child))
-		}
-		emap(item)
-	})
-	return result.join(',')
-}
+        console.time('getName2')
+        const s2 = getName2(data)
+        console.timeEnd('getName2')
 
-console.time('getName1')
-const s = getName(data)
-console.timeEnd('getName1')
+        console.time('getName3')
+        const s3 = getName3(data)
+        console.timeEnd('getName3')
 
-console.time('getName2')
-const s2 = getName2(data)
-console.timeEnd('getName2')
+        console.log('s', s)
+        console.log('s2', s2)
+        console.log('s3', s3)
 
-console.log('s', s)
-console.log('s2', s2)
+// // 广度优先
+// function bft1 (data) {
+// 	const result = []
+// 	const queue = data
+// 	while (queue.length > 0) {
+// 		queue.forEach((item, index, array) => {
+// 			result.push(item.name)
+// 			queue.shift()
+// 			item.children && (queue.push(...item.children))
+// 		})
+// 	}
+// 	return result.join(',')
+// }
+// const b1 = bft1(data)
+// console.log('b1', b1)
 
-// 广度优先
-function bft1 (data) {
-	const result = []
-	const queue = data
-	while (queue.length > 0) {
-		queue.forEach((item, index, array) => {
-			result.push(item.name)
-			queue.shift()
-			item.children && (queue.push(...item.children))
-		})
-	}
-	return result.join(',')
-}
-const b1 = bft1(data)
-console.log('b1', b1)
-
-</script>
+    </script>
 </body>
-</html>		
+
+</html>
