@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LazyLoad-SDK</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .box p {
+        line-height: 28px;
+        font-weight: 700;
+    }
+
+    .box img {
+        width: 100%;
+        min-width: 420px;
+        min-height: 420px;
+        display: block;
+    }
+
+    .box img[data-src] {
+        min-height: 262px;
+    }
+</style>
+
+<body>
+    <div>
+        <div class="box">
+            <p>Image 1</p>
+            <img src="./img/loading.gif" data-src="./img/1.png" alt="img1">
+        </div>
+
+        <div class="box">
+            <p>Image 2</p>
+            <img src="./img/loading.gif" data-src="./img/2.png" alt="img2">
+        </div>
+        <div class="box">
+            <p>Image 3</p>
+            <img src="./img/loading.gif" data-src="./img/3.png" alt="img3">
+        </div>
+        <div class="box">
+            <p>Image 4</p>
+            <img src="./img/loading.gif" data-src="./img/4.png" alt="img4">
+        </div>
+        <div class="box">
+            <p>Image 5</p>
+            <img src="./img/loading.gif" data-src="./img/5.png" alt="img5">
+        </div>
+
+    </div>
+
+    <script>
+        function mapImgLoad () {
+            const imgs = document.querySelectorAll('img[data-src]')
+            console.info('imgs', imgs)
+            if (imgs.length === 0) return
+
+            imgs.forEach(img => {
+                const imgInfo = img.getBoundingClientRect()
+                console.info('imgInfo.top', imgInfo.top)
+                console.info('window.innerHeight', window.innerHeight)
+                if (imgInfo.top < window.innerHeight) {
+                    console.info('loading img ', img.dataset.src)
+                    // 这里是知识盲点  data-src 的数据用 dataset 来获取
+                    img.src = img.dataset.src
+                    img.removeAttribute('data-src')
+                }
+            })
+        }
+
+        function throttle (fn, time) {
+            let prev = 0
+            let timer = null
+            return function () {
+                let _this = this
+                let arg = arguments
+                let now = Date.now()
+                if (now - prev > time) {
+                    fn.call(_this, arg)
+                    prev = now
+                }
+            }
+        }
+
+        window.addEventListener('scroll', throttle(mapImgLoad, 100))
+
+        mapImgLoad()
+    </script>
+</body>
+
+</html>
