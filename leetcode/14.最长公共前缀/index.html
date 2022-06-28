@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14.最长公共前缀</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * @param {string[]} strs
+         * @return {string}
+         */
+        var longestCommonPrefix = function (strs) {
+            if (!strs) return ''
+
+            let res = strs[0]
+
+
+            for (let i = 1; i < strs.length; i++) {
+                let curr = strs[i]
+                let j = 0
+                for (; j < curr.length && j < res.length; j++) {
+                    if (res[j] !== curr[j]) break
+                }
+                res = res.slice(0, j)
+                if (res === '') return ''
+            }
+
+            return res
+        }
+
+        var strs = ["flower", "flow", "flight"]
+        console.info(longestCommonPrefix(strs))
+
+    </script>
+</body>
+
+</html>
