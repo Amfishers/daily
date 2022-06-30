@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5.最长回文子串</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * @param {string} s
+         * @return {string}
+         */
+        var longestPalindrome = function (s) {
+            const len = s.length
+            if (len < 2) return s
+
+            let start = 0
+            // maxLength 默认为 1，是例如 ab 的情况，这时候回文应该是 1，而且不会进入下面的任何循环，所以 maxLength 默认值不应该是 0 而是 1 
+            let maxLength = 1
+
+            // 判断左边和右边是否越界，同时最左边的字符串是否等于最右边的字符串，如果以上3个条件都满足，则判断是否需要更新回文字符串最大长度及最大字符串的起始位置，然后将 left— ， right++，继续判断，直到不满足三个条件之一
+            function expandCenter (left, right) {
+                while (left >= 0 && right < len && s[left] === s[right]) {
+                    // right - left + 1 是什么意思
+                    // 动态判断数组的长度，例如 [0, 1, 2] left 为 0，right 为 2，所以长度为 right - left + 1
+                    if (right - left + 1 > maxLength) {
+                        maxLength = right - left + 1
+                        start = left
+                    }
+                    left--
+                    right++
+                }
+            }
+
+            for (let i = 0; i < len; i++) {
+                // 情况1: abcba 
+                expandCenter(i - 1, i + 1)
+                // 情况2: abba
+                expandCenter(i, i + 1)
+            }
+
+            return s.substring(start, start + maxLength)
+        }
+
+        console.info(longestPalindrome('abbbbbbc'))
+    </script>
+</body>
+
+</html>
