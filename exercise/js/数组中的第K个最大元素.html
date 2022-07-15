@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组中的第K个最大元素</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * @param {number[]} nums
+         * @param {number} k
+         * @return {number}
+         */
+        var findKthLargest = function (nums, k) {
+            var swap = function (arr, x, y) {
+                var temp = arr[x]
+                arr[x] = arr[y]
+                arr[y] = temp
+            }
+
+            // 冒泡排序超出最大时间限制
+            // var sortNum = function  (num) {
+            //     for (var i = 0; i < num.length; i++) {
+            //         for (var j = 0; j < num.length - i - 1; j++) {
+            //             if (num[j] > num[j+1]) {
+            //                 swap(num, j, j+1)
+            //             }
+            //         }
+            //     }
+            // }
+
+            // 选择排序
+            // var selectSort = function (num) {
+            //     var len = num.length, indexMin
+
+            //     for (var i = 0; i<len; i++) {
+            //         indexMin = i
+            //         for (var j = i; j < len; j++) {
+            //             if (num[j] < num[indexMin]) {
+            //                 indexMin = j
+            //             }
+            //         }
+
+            //         if (indexMin !== i) {
+            //             swap(num, i, indexMin)
+            //         }
+            //     }
+            //     return num
+            // }
+
+            // 归并排序
+            function mergeSort (arr) {
+                var nArr = arr.slice()
+                return mergeRect(nArr)
+            }
+
+            function mergeRect (arr) {
+                if (arr.length < 2) return arr
+
+                var len = arr.length
+                var mid = Math.floor(len / 2)
+                var left = arr.slice(0, mid)
+                var right = arr.slice(mid)
+
+
+                return merge(mergeRect(left), mergeRect(right))
+            }
+
+            function merge (left, right) {
+                var result = []
+                var ileft = 0
+                var iright = 0
+
+                while (ileft < left.length && iright < right.length) {
+                    if (left[ileft] < right[iright]) {
+                        result.push(left[ileft++])
+                    } else {
+                        result.push(right[iright++])
+                    }
+                }
+
+                while (ileft < left.length) {
+                    result.push(left[ileft++])
+                }
+
+                while (iright < right.length) {
+                    result.push(right[iright++])
+                }
+
+                return result
+            }
+
+
+            // 快速排序
+            var quickSort = function (num) {
+                if (num.length < 2) return num
+                var left = []
+                var right = []
+                var mid = Math.floor(num.length / 2)
+                var midVal = num.splice(mid, 1)[0]
+                for (var i = 0; i < num.length; i++) {
+                    var curr = num[i]
+                    var target = curr < midVal ? left : right
+                    target.push(curr)
+                }
+                return quickSort(left).concat(midVal, quickSort(right))
+            }
+
+            var result = mergeSort(nums)
+            return result[result.length - k]
+        };
+
+    </script>
+</body>
+
+</html>
