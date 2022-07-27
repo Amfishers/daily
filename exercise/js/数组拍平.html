@@ -64,24 +64,24 @@
 
 
         // 实现在原型链上面重写 flat
-        Array.prototype.FakeFlat = function (num = 1) {
-            if (!Number(num) || num <= 0) {
-                return this
-            }
+        // Array.prototype.FakeFlat = function (num = 1) {
+        //     if (!Number(num) || num <= 0) {
+        //         return this
+        //     }
 
-            let arr = this.slice()
+        //     let arr = this.slice()
 
-            while (num > 0) {
-                if (arr.some(item => Array.isArray(item))) {
-                    arr = [].concat.call([], arr)
-                } else {
-                    break
-                }
-                num--
-            }
+        //     while (num > 0) {
+        //         if (arr.some(item => Array.isArray(item))) {
+        //             arr = [].concat.call([], arr)
+        //         } else {
+        //             break
+        //         }
+        //         num--
+        //     }
 
-            return arr
-        }
+        //     return arr
+        // }
 
         // 优化
         // 根据 reduce 特性，可以忽略掉空位数组
@@ -99,10 +99,10 @@
                 : arr.slice()
         }
 
-        var heavyArr = [1, 2, 3, , , ,]
-        console.log(heavyArr.FakeFlat())
+        var heavyArr = [1, 2, 3, [2, 3, 4, [3, 4, 5, 6, [1, 2, 3, [23, 23, [23]]]]]]
+        console.log(heavyArr.FakeFlat(2))
 
-        console.log(flatten(arr)) // [1, 2, 3, 4]
+        // console.log(flatten(arr)) // [1, 2, 3, 4]
     </script>
 </body>
 
