@@ -1,7 +1,7 @@
 /**
  * @基本类型
  */
-const a:number = 1
+const a : number = 1
 const b : string = '1'
 const c : boolean = true
 
@@ -121,7 +121,7 @@ bear.honey
 
 /**
  * 类型断言
- * 
+ *  TypeScript 仅仅允许类型断言转换为一个更加具体或者更不具体的类型。
  */
 
  const myCanvas = document.getElementById("main_canvas") as HTMLCanvasElement;
@@ -131,3 +131,19 @@ bear.honey
 // 有的时候，这条规则会显得非常保守，阻止了你原本有效的类型转换。如果发生了这种事情，你可以使用双重断言，先断言为 any （或者是 unknown），然后再断言为期望的类型：
 
 // const aaa = (expr as any) as T;  ???
+
+
+/**
+ * 字面量推断（Literal Inference）
+ */
+ declare function handleRequest(url: string, method: "GET" | "POST"): void;
+
+ const req = { url: "https://example.com", method: "GET" };
+ handleRequest(req.url, req.method);
+ 
+
+ 
+ /**
+  * strictNullChecks 关闭
+  * 当 strictNullChecks (opens new window)选项关闭的时候，如果一个值可能是 null 或者 undefined，它依然可以被正确的访问，或者被赋值给任意类型的属性。这有点类似于没有空值检查的语言 (比如 C# ，Java) 。这些检查的缺少，是导致 bug 的主要源头，所以我们始终推荐开发者开启 strictNullChecks (opens new window)选项。
+  */
