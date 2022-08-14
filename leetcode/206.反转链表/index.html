@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>206.反转链表</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * Definition for singly-linked list.
+         * function ListNode(val, next) {
+         *     this.val = (val===undefined ? 0 : val)
+         *     this.next = (next===undefined ? null : next)
+         * }
+         */
+        /**
+         * @param {ListNode} head
+         * @return {ListNode}
+         */
+        var reverseList = function (head) {
+            let prev = null
+            let curr = head
+
+            while (curr) {
+                // 用于临时存储 curr 后继节点
+                const next = curr.next
+                // 反转 curr 的后继指针
+                curr.next = prev
+                // 变更prev、curr 
+                // 待反转节点指向下一个节点 
+                prev = curr
+                curr = next
+            }
+
+            return prev
+        }
+    </script>
+</body>
+
+</html>

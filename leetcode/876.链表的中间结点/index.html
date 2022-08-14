@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>876.链表的中间结点</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * Definition for singly-linked list.
+         * function ListNode(val, next) {
+         *     this.val = (val===undefined ? 0 : val)
+         *     this.next = (next===undefined ? null : next)
+         * }
+         */
+        /**
+         * @param {ListNode} head
+         * @return {ListNode}
+         */
+
+        //  方法一： 快慢指针,快指针一次走两步，慢指针一次走一步
+        var middleNode = function (head) {
+            var fast = head
+            var slow = head
+
+            while (fast !== null && fast.next !== null) {
+                slow = slow.next
+                fast = fast.next.next
+            }
+
+            return slow
+        };
+
+        // 方法二：单指针法
+        // 思路：对链表进行两次遍历，第一次遍历取得链表总数，然后计算中间值。
+        //       第二次遍历到中间值的时候，返回即可。
+        var middleNode = function (head) {
+
+            var n = 0
+            var cur = head
+
+            while (cur !== null) {
+                ++n
+                cur = cur.next
+            }
+
+            var mid = Math.floor(n / 2)
+            var res = head
+            var k = 0
+
+            while (k < mid) {
+                res = res.next
+                ++k
+            }
+            return res
+
+        };
+    </script>
+</body>
+
+</html>
