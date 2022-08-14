@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * @param {number[]} nums1
+         * @param {number} m
+         * @param {number[]} nums2
+         * @param {number} n
+         * @return {void} Do not return anything, modify nums1 in-place instead.
+         */
+        var merge = function (nums1, m, nums2, n) {
+            nums1.splice(m, nums1.length - m, ...nums2)
+            console.info('nums1', nums1)
+            nums1.sort((a, b) => a - b)
+        }
+
+
+        /**
+         * @param {number[]} nums1
+         * @param {number} m
+         * @param {number[]} nums2
+         * @param {number} n
+         * @return {void} Do not return anything, modify nums1 in-place instead.
+         */
+        var merge = function (nums1, m, nums2, n) {
+            // 双指针
+            // p 对应左指针。q 对应右指针
+            let p = 0, q = 0
+            let newArr = new Array(m + n).fill(0)
+            let cur
+            while (p < m || q < n) {
+                if (p === m) {
+                    // 考虑边界问题
+                    // 到了 m 的最大阈值，那么取 nums2 q++ 的数据
+                    cur = nums2[q++]
+                } else if (q === n) {
+                    // 考虑边界问题
+                    // 到了 n 的最大阈值，那么取 nums1 p++ 的数据
+                    cur = nums1[p++]
+                } else if (nums1[p] < nums2[q]) {
+                    cur = nums1[p++]
+                } else {
+                    cur = nums2[q++]
+                }
+                newArr[p + q - 1] = cur
+            }
+
+            for (let i = 0; i < m + n; i++) {
+                nums1[i] = newArr[i]
+            }
+        }
+
+
+        merge([1, 2, 3, 0, 0, 0], 3, [4, 5, 6], 3)
+    </script>
+</body>
+
+</html>
