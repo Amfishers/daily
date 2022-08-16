@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js更合理的随机分组</title>
+</head>
+
+<body>
+    <script>
+
+        function grouping (list = [], num = 1) {
+            if (!list || !Array.isArray(list)) throw Error('The input type must be an array!')
+            // 如果分组的数字大于 list 的个数，则将 num 值自动设置为 list 个数
+            if (num > list.length) num = list.length
+            // 排序
+            list.sort(() => Math.random() > 0.5 ? -1 : 1)
+
+            let result = []
+            //在空数组内再创建num个空数组
+            for (let i = 0; i < num; i++) {
+                result.push([])
+            }
+
+            let z = 0
+            while (list.length !== 0) {
+                for (let i = 0; i < num; i++) {
+                    const item = list.pop()
+                    item ? (result[i][z] = item) : null
+                }
+                ++z
+            }
+
+            return result
+        }
+
+        var list = [
+            { name: 'a1' },
+            { name: 'a2' },
+            { name: 'a3' },
+            { name: 'a4' },
+            { name: 'a5' },
+            { name: 'a6' },
+            { name: 'a7' },
+            { name: 'a8' },
+            { name: 'a9' },
+            { name: 'a10' }
+        ]
+
+        console.info(grouping(list, 12))
+    </script>
+</body>
+
+</html>
