@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 花了半个小时 我自己写的
+
+        // function numMinus (a, b) {
+        //     if (a < 0 || b < 0) throw Error('please input number large then 0')
+
+        //     let big = `${a}`.split('')
+        //     let sm = `${b}`.split('')
+        //     let temp = false
+        //     let result = ''
+
+        //     while (big.length || sm.length) {
+        //         let subBig = ~~big.pop() || 0
+        //         let subSm = ~~sm.pop() || 0
+
+        //         let curr = subBig - subSm + temp
+        //         if (curr >= 0) {
+        //             // 相减的值大于 0
+        //             result += curr
+        //         } else {
+        //             // 相减的值小于 0
+        //             result += (subBig + 10 - subSm + temp)
+        //             temp--
+        //         }
+
+        //     }
+        //     return result
+        // }
+
+
+        //sizzle
+
+
+        // function numMinus (a, b) {
+        //     if (a < 0 || b < 0) throw Error('please input number large then 0')
+
+        //     let big = `${a}`.split('')
+        //     let sm = `${b}`.split('')
+        //     let result = ''
+
+        //     while (big.length || sm.length) {
+        //         let subBig = ~~big.pop() || 0
+        //         let subSm = ~~sm.pop() || 0
+
+        //         let curr = subBig - subSm
+        //         if (curr >= 0) {
+        //             // 相减的值大于 0
+        //             result += curr
+        //         } else {
+        //             // 相减的值小于 0
+        //             result += (subBig + 10 - subSm)
+
+        //             let i = big.length - 1
+
+        //             while (+big[i] < 1) {
+        //                 i--
+        //             }
+
+        //             big[i] = `${parseInt(big[i]) - 1}`
+        //         }
+
+        //     }
+        //     return result
+        // }
+
+
+        function numMinus (a, b) {
+            if (a < 0 || b < 0) throw Error('please input number large then 0')
+
+            let big = `${a}`.split('')
+            let sm = `${b}`.split('')
+            let result = ''
+
+            while (big.length || sm.length) {
+                let subBig = ~~big.pop() || 0
+                let subSm = ~~sm.pop() || 0
+
+                let curr = subBig - subSm
+                if (curr >= 0) {
+                    // 相减的值大于 0
+                    result = `${curr}${result}`
+                } else {
+                    // 相减的值小于 0
+                    result = (curr + 10) + result
+                    big[big.length - 1]--
+                }
+
+            }
+            return result.replace(/^0+/, '')
+        }
+
+
+
+        const minus = (x, y) => {
+            let xr = x.split('').reverse()
+            let yr = y.split('').reverse()
+            let len = Math.max(xr.length, yr.length)
+            let items = []
+            for (let i = 0; i < len; i++) {
+                let xv = xr[i] || '0'
+                let yv = yr[i] || '0'
+                items[i] = {
+                    xv,
+                    yv,
+                }
+            }
+
+            let isBorrowed = false
+            let diff = items.reduce((diff, item, index) => {
+                let { xv, yv } = item
+
+                xv = +xv
+                yv = +yv
+
+                // 如果被借位，则一开始自己就要减1
+                if (isBorrowed) {
+                    xv--
+                }
+
+                // 向前借位
+                if (xv < yv) {
+                    isBorrowed = true
+                    xv += 10
+                }
+                else {
+                    isBorrowed = false
+                }
+
+                let v = xv - yv
+                diff = v + diff
+
+                return diff
+            }, '')
+
+            return diff
+        }
+
+
+        // 正整数相减
+        function handleBigNumNimus (bigNumberA, bigNumberB) {
+            let numberArrA = bigNumberA.split('')
+            let numberArrB = bigNumberB.split('')
+
+            let isABigB = numberArrA.length > numberArrB.length//根据数组长度比较数字大小
+            let maxLength = numberArrA.length > numberArrB.length ? numberArrA.length : numberArrB.length
+
+            if (numberArrA.length == numberArrB.length) {//数组长度一致，根据顺位比较俩数字大小
+                for (let i = 0; i < maxLength; i++) {
+                    if (numberArrA[i] > numberArrB[i]) {
+                        isABigB = true
+                        break//跳出循环
+                    };
+                }
+            }
+
+            if (!isABigB) {//是否交换数组
+                numberArrA = [numberArrB, numberArrB = numberArrA][0]
+            };
+
+            // A 大于 B
+            let subResult = ''
+            while (maxLength) {
+                let subItem = parseInt(numberArrA.pop()) - parseInt(numberArrB.pop() || 0)//各取最后一项进行计算
+                if (subItem >= 0) {
+                    subResult = String(subItem) + subResult
+                } else {//负数向上借位(即加 10 处理)
+                    subResult = String(subItem + 10) + subResult
+                    numberArrA[maxLength - 2]--//向上借位(maxlength 与 numberArrA 长度一致，由于先进行 pop 操作，maxlength 未自减；所以此处需要 -2 获取 numberArrA 最后一项)
+                }
+                maxLength--
+            };
+            return (isABigB ? '' : '-') + subResult
+        }
+
+        console.log(handleBigNumNimus('8', '100'))
+        console.log(numMinus(100, 99))
+
+
+    </script>
+</body>
+
+</html>
