@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13.罗马数字转整数</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * @param {string} s
+         * @return {number}
+         */
+        var romanToInt = function (s) {
+            const hashMap = new Map()
+            hashMap.set('I', 1)
+            hashMap.set('V', 5)
+            hashMap.set('X', 10)
+            hashMap.set('L', 50)
+            hashMap.set('C', 100)
+            hashMap.set('D', 500)
+            hashMap.set('M', 1000)
+
+            let len = s.length
+            let r = 0
+            for (let i = 0; i < len; ++i) {
+                let value = hashMap.get(s[i])
+                if (i < len && value < hashMap.get(s[i + 1])) {
+                    r -= value
+                } else {
+                    r += value
+                }
+            }
+            return r
+        };
+    </script>
+</body>
+
+</html>
