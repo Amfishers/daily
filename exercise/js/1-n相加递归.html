@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-n相加递归</title>
+</head>
+
+<body>
+    <script>
+        // function add (n) {
+        //     if (n === 1) return n
+        //     return n + add(n - 1)
+        // }
+
+        // var add = function () {
+        //     let hash = {}
+
+        //     return (n) => {
+        //         let result = hash[n]
+
+        //         if (typeof result !== 'number') {
+        //             result = n + add(n - 1)
+        //             hash[n] = result
+        //         }
+
+        //         return result
+        //     }
+
+        //     // if (n === 1) return n
+        //     // return n + add(n - 1)
+        // }()
+
+        let myadd = (n) => {
+            let memo = {}
+            const add = (n) => {
+                if (memo[n] != null) return memo[n]
+                return memo[n] = n + add(n - 1)
+            }
+            return add(n)
+        }
+
+
+        // const fibostorage = (n) => {
+        //     const memo = [0, 1, 1]
+        //     const fibonacci = (n) => {
+        //         if (memo[n] != null) return memo[n]
+        //         return memo[n] = fibonacci(n - 1) + fibonacci(n - 2)
+        //     }
+        //     return fibonacci(n)
+        // }
+
+        console.log(myadd(8))
+    </script>
+</body>
+
+</html>
