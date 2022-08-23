@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <video id="rtc"></video>
+
+    <script>
+        navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+            // 参数表示需要同时获取到音频和视频
+            .then(stream => {
+                // 获取到优化后的媒体流
+                let video = document.querySelector('#rtc')
+                video.srcObject = stream
+                // console.log('stream', stream)
+            })
+            .catch(err => {
+                // 捕获错误
+            });
+
+
+    </script>
+
+</body>
+
+</html>
