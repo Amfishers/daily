@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>洋葱模型</title>
+</head>
+
+<body>
+    <script>
+        const middleware = []
+
+        middleware.push((next) => {
+            console.log('1')
+            next()
+            console.log('6')
+        })
+
+        middleware.push((next) => {
+            console.log('2')
+            next()
+            console.log('5')
+        })
+
+        middleware.push((next) => {
+            console.log('3')
+            next()
+            console.log('4')
+        })
+
+        // 编写 compose ，打印出 1,2,3,4,5,6
+
+        const compose = (arr) => {
+            return () => {
+                const next = () => {
+                    const fn = arr.shift()
+                    if (fn) {
+                        fn(next)
+                    }
+                }
+                next()
+            }
+        }
+
+        let fn = compose(middleware)
+        fn()
+
+    </script>
+</body>
+
+</html>
