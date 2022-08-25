@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>56.合并区间</title>
+</head>
+
+<body>
+    <script>
+        // 按每个区间开头大小升序排序
+        // 排序后，使用变量tmp保存当前区间，遍历所有区间，每次只会面对两种情况：
+        // 当前区间和tmp 相邻或者重叠， 可以合并成一个连续的大区间
+        // 当前区间与tmp不重叠， 说明tmp是的独立的区间，添加到结果中
+
+        var merge = function (intervals) {
+            if (intervals.length === 0) return []
+            // 按每个区间的开头大小排序
+            intervals.sort((a, b) => {
+                return a[0] - b[0]
+            })
+            let res = []
+            let tmp = intervals[0]
+            for (let interval of intervals) {
+                // 有重叠，可以合并
+                // temp 为上次记录的值，如果新值头部 小于等于 旧值尾部
+                if (interval[0] <= tmp[1]) {
+
+                    // 取旧值的头部，以及新旧值尾部最大值
+                    tmp = [tmp[0], Math.max(interval[1], tmp[1])]
+
+                } else {
+
+                    // 无重叠， tmp是独立的区间，记录到结果中
+                    res.push([].concat(tmp))
+                    tmp = interval
+
+                }
+            }
+            res.push(tmp)// 最后的区间
+
+            return res
+        }
+
+        var intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
+        console.info(merge(intervals))
+    </script>
+</body>
+
+</html>
