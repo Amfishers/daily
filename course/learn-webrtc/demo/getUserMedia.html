@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getUserMedia</title>
+</head>
+
+<body>
+    <video autoplay muted id="video"></video>
+    <audio muted id="audio"></audio>
+    <script>
+        var vid = document.getElementById('video')
+        var aud = document.getElementById('audio')
+        var steamObj = null
+
+        // var constraints = { audio: true, video: true } // 默认，没有任何配置
+        var constraints = {
+            audio: true,
+            video: {
+                width: { min: 1024, ideal: 1280, max: 1920 },
+                height: { min: 720, ideal: 720, max: 1080 }
+            }
+        }
+
+
+        var gum = navigator.mediaDevices.getUserMedia(constraints).then(steam => {
+            console.log('steam', steam)
+            steamObj = steam
+            vid.srcObject = steam
+
+            steamObj.getTracks().forEach(item => {
+                console.log('getTracks', item)
+            })
+        }).catch(e => {
+            console.log('e', e)
+        })
+
+        console.log('gum', gum)
+
+    </script>
+</body>
+
+</html>
