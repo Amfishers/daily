@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        var obj = {
+            name: 'leaf',
+            age: 20
+        }
+        var str = "我是{{name}}，name是我的名字，我今年{{age}}岁"
+
+        function render (template, data) {
+            return template && template.replace(/\{\{(.*?)\}\}/g, (context, key) => {
+                console.log(context, key)
+                return data[key.trim()]
+            })
+        }
+
+        var result = render(str, obj)
+    </script>
+</body>
+
+</html>

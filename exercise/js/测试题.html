@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        for (var index = (setTimeout(() => {
+            console.log(index)
+        }, 3315), 0); index < 2; index++) {
+
+
+        }
+        // 输出2
+
+        console.log('start1')
+        setTimeout(() => {
+            console.log('start2-1')
+            Promise.resolve().then(() => console.log('start2 - 2'))
+        }, 100)
+        setTimeout(() => {
+            console.log('start3-1')
+            Promise.resolve().then(() => console.log('start3 - 2'))
+        }, 100)
+        Promise.resolve().then(() => console.log('start4'))
+        console.log('start5')
+    </script>
+</body>
+
+</html>

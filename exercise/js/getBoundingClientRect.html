@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getBoundingClientRect</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .a1 {
+        width: 100px;
+        height: 4000px;
+        background-color: #000;
+    }
+
+    .a2 {
+        margin-top: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: #0cc;
+    }
+</style>
+
+<body>
+    <div>
+        <div class="a1" id="a1"></div>
+        <div class="a2" id="a2"></div>
+    </div>
+
+    <script>
+        var a2Info = a2.getBoundingClientRect()
+        console.info('a2Info', a2Info)
+
+    </script>
+</body>
+
+</html>

@@ -47,7 +47,6 @@
                 // 然后再下一层 if 没有进入逻辑，接着直接 j = i 然后 i--，这样 i = 11，但是for 循环里面又运行 i++
                 // 所以 i 一直等于12，所以无限循环
                 if (str[i] !== str[j] || i === length - 1) {
-                    debugger
                     if (countLength > res.length) {
                         res.char = str[j]
                         res.length = countLength

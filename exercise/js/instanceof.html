@@ -10,19 +10,41 @@
 
 <body>
     <script>
+        // 缺少考虑普通类型
+        // function MyInstance (left, right) {
+        //     let leftValue = left.__proto__, rightValue = right.prototype
+        //     while (true) {
+        //         debugger
+        //         if (leftValue === rightValue) return true
+        //         if (leftValue === null) return null
+        //         leftValue = leftValue.__proto__
+        //     }
+        // }
+
+
         function MyInstance (left, right) {
-            let leftValue = left.__proto__, rightValue = right.prototype
-            while (true) {
-                debugger
-                if (leftValue === rightValue) return true
-                if (leftValue === null) return null
-                leftValue = leftValue.__proto__
+            if (left == null) return false // null undefined
+
+            const type = typeof left
+            if (type !== 'objcet' && type !== 'function') {
+                return false
             }
+
+            let tempInstance = left
+            while (tempInstance) {
+                if (tempInstance.__proto__ === right.prototype) {
+                    return true
+                }
+                tempInstance = tempInstance.__proto__
+            }
+
+            return false
         }
 
         function Name (params) {
             console.log('params', params)
         }
+
         var fisher = new Name('123')
         // console.log(fisher instanceof Name)
 

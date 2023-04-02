@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>151.颠倒字符串中的单词</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * @param {string} s
+         * @return {string}
+         */
+        var reverseWords = function (s) {
+            let left = 0
+            let right = s.length - 1
+            let queue = []
+            let word = ''
+            while (s.charAt(left) === ' ') left++
+            while (s.charAt(right) === ' ') right--
+            while (left <= right) {
+                let char = s.charAt(left)
+                if (char === ' ' && word) {
+                    queue.unshift(word)
+                    word = ''
+                } else if (char !== ' ') {
+                    word += char
+                }
+                left++
+            }
+            queue.unshift(word)
+            return queue.join(' ')
+        }
+
+        console.info(reverseWords('asd dsdsd zcz'))
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>requestAnimationFrame</title>
+    <style>
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 50px;
+            border: 3px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+    <p>requestAnimationFrame</p>
+
+    <button id="btn1">change</button>
+    <div id="box"></div>
+
+    <script>
+        const box = document.getElementById('box')
+        let i = 0
+        function move () {
+            i++
+            if (i > 200) {
+                return
+            } else {
+                box.style.left = `${i}px`
+                window.requestAnimationFrame(move)
+            }
+        }
+
+        btn1.onclick = function () {
+            move()
+        }
+
+        function throttle (fn, wait) {
+            var timer = null
+            var lastTime = Date.now()
+            return function (...args) {
+                var now = Date.now()
+                var that = this
+
+                if (now - lastTime > wait) {
+                    lastTime = now
+                    fn.call(this, ...args)
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

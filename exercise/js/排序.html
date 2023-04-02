@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>各种排序</title>
+</head>
+
+<body>
+    <script>
+        /**
+         * arr 原数组
+         * originIdx 原 index 索引
+         * targetIdx 期望交替索引
+         */
+        function swap (arr, originIdx, targetIdx) {
+            let temp = arr[originIdx]
+            arr[originIdx] = arr[targetIdx]
+            arr[targetIdx] = temp
+        }
+
+        // 冒泡排序
+        function bubbleSort (arr) {
+            var newArr = arr.slice()
+            for (let i = 0; i < newArr.length; i++) {
+                for (let j = 0; j < newArr.length - i - 1; j++) {
+                    if (newArr[j] > newArr[j + 1]) {
+                        swap(newArr, j, j + 1)
+                    }
+                }
+
+            }
+            return newArr
+        }
+
+        // 选择排序
+        function selectSort (arr) {
+            var newArr = arr.slice()
+
+            for (let i = 0; i < newArr.length - 1; i++) {
+                let minIdx = i
+
+                for (let j = i; j < newArr.length; j++) {
+                    if (newArr[minIdx] > newArr[j]) {
+                        minIdx = j
+                    }
+                }
+
+                if (minIdx != i) {
+                    swap(newArr, i, minIdx)
+                }
+
+            }
+
+            return newArr
+        }
+
+        // 归并排序
+        function mergeSort (arr) {
+            let newArr = arr.slice()
+
+            return mergeRect(newArr)
+        }
+
+        function mergeRect (arr) {
+            if (arr.length < 2) return arr
+
+            let len = arr.length
+            let mid = Math.floor(len / 2)
+            let left = arr.slice(0, mid)
+            let right = arr.slice(mid, len)
+
+            return merge(mergeRect(left), mergeRect(right))
+        }
+
+        function merge (left, right) {
+            let result = []
+            let ileft = 0
+            let iright = 0
+
+            while (ileft < left.length && iright < right.length) {
+                if (left[ileft] < right[iright]) {
+                    result.push(left[ileft++])
+                } else {
+                    result.push(right[iright++])
+                }
+            }
+
+            while (ileft < left.length) {
+                result.push(left[ileft++])
+            }
+
+            while (iright < right.length) {
+                result.push(right[iright++])
+            }
+
+            return result
+        }
+
+        // 快排
+        function quickSort (arr) {
+            if (arr.length < 2) return arr
+            const mid = Math.floor(arr.length / 2)
+            let midVal = arr.splice(mid, 1)[0]
+            let left = []
+            let right = []
+            for (let i = 0; i < arr.length; i++) {
+                const curr = arr[i]
+                const target = curr < midVal ? left : right
+                target.push(curr)
+            }
+            return quickSort(left).concat(midVal, quickSort(right))
+        }
+
+
+
+        var arr = [20, 12, 32, 3, 0, 12, 1, 5, 99, 23, 523]
+
+        console.info('冒泡排序', bubbleSort(arr))
+        console.info('选择排序', selectSort(arr))
+        console.info('归并排序', mergeSort(arr))
+        console.info('快速排序', quickSort(arr))
+    </script>
+</body>
+
+</html>

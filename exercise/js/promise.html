@@ -1,18 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Promise</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
 </head>
+
 <body>
 
-<script type="text/javascript">
-	
+    <script type="text/javascript">
+        // 手写Promise
+        (function (window) {
+            function Promise (executor) {
+
+            }
+
+            Promise.prototype.then = function (onResolved, onRejected) {
+
+            }
+
+            Promise.prototype.catch = function (onRejected) {
+
+            }
+
+            window.Promise = Promise
+        })(window)
 
 
-</script>
+        // var resolved = Promise.resolve(42)
+        // var rejected = Promise.reject(-1)
+        // var alsoRejected = Promise.reject(Infinity)
+
+        // Promise.any([resolved, rejected, alsoRejected]).then(function (result) {
+        //     console.log('result', result) // 42
+        // })
+
+        // Promise.any([rejected, alsoRejected]).catch(function (results) {
+        //     console.log('results', results) // [-1, Infinity]
+        // })
+
+
+        const p1 = new Promise((resolve, reject) => {
+            resolve('hello')
+        })
+            .then(result => result)
+        // .catch(e => e)
+
+        const p2 = new Promise((resolve, reject) => {
+            reject(new Error('rsss'))
+            throw new Error('报错了')
+        })
+            .then(result => result)
+        // .catch(e => e)
+
+        const p3 = new Promise((resolve, reject) => {
+            resolve('hello3')
+        })
+            .then(result => result)
+
+        Promise.all([p1, p3])
+            .then(result => {
+                console.log(result)
+            })
+            .catch(e => {
+                console.log(e)
+            });
+        // ["hello", Error: 报错了]
+
+    </script>
 
 
 </body>
+
 </html>

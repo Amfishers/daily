@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数组转化为树</title>
+    <title>数组转化为树和树转化为数组</title>
 </head>
 
 <body>
@@ -18,8 +18,6 @@
             { id: 5, name: '部门E', parentId: 2 },
             { id: 6, name: '部门F', parentId: 3 },
         ]
-
-
 
         // function convert (arr) {
         //     let root = null
@@ -46,14 +44,6 @@
         // }
 
         // console.info('convert', convert(arr))
-
-
-
-
-
-
-
-
 
 
 
@@ -87,6 +77,63 @@
         // }
 
         // console.info('convert', convert(arr))
+
+
+        const obj = {
+            id: 1,
+            name: '部门A',
+            children: [
+                {
+                    id: 2,
+                    name: '部门B',
+                    children: [
+                        { id: 4, name: '部门D' },
+                        { id: 5, name: '部门E' }
+                    ]
+                },
+                {
+                    id: 3,
+                    name: '部门C',
+                    children: [
+                        { id: 6, name: '部门F' }
+                    ]
+                }
+            ]
+        }
+
+        // 思路
+        // 构建一个 Map 结构存储，子节点为key，父节点为value
+        // 构建一个队列，先进先出原则，然后不断 while 队列个数
+        // 构建一个 arr 来存储 return 的数据
+
+        function convert2Tree (obj) {
+            let hashMap = new Map()
+            let queue = []
+            let arr = []
+
+            queue.unshift(obj)
+
+            while (queue.length) {
+                const cur = queue.pop()
+                const { id, name, children = [] } = cur
+
+                const parentNode = hashMap.get(cur)
+                const parentId = parentNode && parentNode.id || 0
+                arr.push({ id, name, parentId })
+
+                // 子节点入队
+                children.forEach(item => {
+                    // 映射 parent
+                    hashMap.set(item, cur)
+                    // 入队
+                    queue.unshift(item)
+                })
+            }
+
+            return arr
+        }
+
+        console.info('convert2Tree', obj, convert2Tree(obj))
     </script>
 </body>
 

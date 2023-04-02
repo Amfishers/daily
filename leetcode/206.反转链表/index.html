@@ -38,6 +38,22 @@
 
             return prev
         }
+
+
+        /**
+         * 头插法 
+         */
+        let reverseList = function (head) {
+            let temp = new ListNode()
+            let next = null
+            while (head) {
+                next = head.next
+                head.next = temp.next
+                temp.next = head // head 接在 temp 的后面
+                head = next
+            }
+            return temp.next
+        }
     </script>
 </body>
 
