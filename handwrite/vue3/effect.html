@@ -108,6 +108,20 @@
             effects && effects.forEach(fn => fn())
         }
 
+        // 为什么使用 WeakMap， 举个例子
+        const map = new Map()
+        const weakMap = new WeakMap()
+
+            (function () {
+                const foo = { foo: 1 }
+                const bar = { bar: 1 }
+
+                map.set(foo, 1)
+                weakMap.set(bar, 1)
+            })()
+
+        // 分析： 如果使用 Map 的话， map.set 表达式执行后，foo仍然被引用，所以不会触发垃圾回收机制
+        //  使用 WeakMap 的 key 是弱引用， 不会影响垃圾回收机制的工作，一旦表达式执行完毕，垃圾回收器就会把对象bar从内存中移除
     </script>
 </body>
 
