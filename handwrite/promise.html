@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+
+<body>
+
+    <script>
+        class MyPromise {
+            PENDING = 'pending'
+            FULFILLED = 'fulfilled'
+            REJECTED = 'rejected'
+
+            constructor(fn) {
+                this.status = this.PENDING
+                this.promiseValue = undefined
+                fn(this.resolve.bind(this), this.reject.bind(this))
+            }
+
+            resolve (result) {
+                if (this.status === this.PENDING) {
+                    this.status = this.FULFILLED
+                    this.promiseValue = result
+                }
+
+            }
+            reject (reason) {
+                if (this.status === this.PENDING) {
+                    this.status = this.REJECTED
+                    this.promiseValue = reason
+                }
+
+            }
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
