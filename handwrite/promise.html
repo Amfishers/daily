@@ -19,13 +19,20 @@
             constructor(fn) {
                 this.status = this.PENDING
                 this.promiseValue = undefined
-                fn(this.resolve.bind(this), this.reject.bind(this))
+                this.onFulfilledCallbacks = [] // 保存成功回调
+                this.onRejectedCallbacks = [] // 保存失败回调
+                try {
+                    fn(this.resolve.bind(this), this.reject.bind(this))
+                } catch (error) {
+                    this.reject(error)
+                }
             }
 
             resolve (result) {
                 if (this.status === this.PENDING) {
                     this.status = this.FULFILLED
                     this.promiseValue = result
+                    this.resoleFun(this.onFulfilledCallbacks, result)
                 }
 
             }
@@ -33,12 +40,64 @@
                 if (this.status === this.PENDING) {
                     this.status = this.REJECTED
                     this.promiseValue = reason
+                    this.resoleFun(this.onRejectedCallbacks, reason)
                 }
 
             }
+            then (onFulfilled, onRejected) {
+                onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value
+                onRejected = typeof onRejected === 'function' ? onRejected : reason => { throw reason }
+                if (this.status === this.PENDING) {
+                    this.onFulfilledCallbacks.push(() => {
+                        setTimeout(() => {
+                            onFulfilled(this.promiseValue)
+                        })
+                    })
+                    this.onRejectedCallbacks.push(() => {
+                        setTimeout(() => {
+                            onRejected(this.promiseValue)
+                        })
+                    })
+                }
+                if (this.status === this.FULFILLED) {
+                    onFulfilled(this.promiseValue)
+                }
+                if (this.status === this.REJECTED) {
+                    onRejected(this.promiseValue)
+                }
+            }
 
+            resoleFun (arr, arg) {
+                if (arr.length) {
+                    let len = arr.len
+                    while (len--) {
+                        arr[len](arg)
+                        arr.splice(len, 1)
+                    }
+                }
+            }
         }
 
+        console.log(1)
+        let promise1 = new MyPromise((resolve, reject) => {
+            console.log(2)
+            setTimeout(() => {
+                console.log('A', promise1.PromiseState)
+                resolve('这次一定')
+                console.log('B', promise1.PromiseState)
+                console.log(4)
+            })
+        })
+        promise1.then(
+            result => {
+                console.log('C', promise1.PromiseState)
+                console.log('fulfilled:', result)
+            },
+            reason => {
+                console.log('rejected:', reason)
+            }
+        )
+        console.log(3);
 
     </script>
 
