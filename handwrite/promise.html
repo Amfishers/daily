@@ -9,8 +9,79 @@
 </head>
 
 <body>
+    <code>
+        promise 有几点
+        1. 两个参数 resolve  reject
+        2. 需要存状态，因为状态不可变
+        3. 储存值
+        4. then 是异步
+        5. then的两个参数就是成功和失败方法，如果类型检测不是function，那么参数将自动转化为方法
+
+
+
+
+    </code>
 
     <script>
+        // 自己手写的
+        class SelfPromise {
+            static PENDING = 'pending'
+            static FULFILLED = 'fulfilled'
+            static REJECTED = 'rejected'
+            constructor(fn) {
+                this.status = this.PENDING
+                this.result = undefined
+                this.onFulfilledCallbacks = []
+                this.onRejectedCallbacks = []
+                fn(this.resolve.bind(this), this.reject.bind(this))
+            }
+
+            resolev (result) {
+                if (this.status === this.PENDING) {
+                    this.status = this.FULFILLED
+                    this.result = result
+                    this.onFulfilledCallbacks.forEach(fn => fn(result))
+                }
+            }
+
+            reject (reason) {
+                if (this.status === this.PENDING) {
+                    this.status = this.REJECTED
+                    this.result = reason
+                    this.onRejectedCallbacks.forEach(fn => fn(reason))
+                }
+            }
+
+            then (onFulfilled, onRejected) {
+                onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value
+                onRejected = typeof onRejected === 'function' ? onRejected : error => { throw Error }
+
+                if (this.status === this.PENDING) {
+                    this.onFulfilledCallbacks.push(() => {
+                        setTimeout(() => {
+                            onFulfilled(this.result)
+                        })
+                    })
+                    this.onRejectedCallbacks.push(() => {
+                        setTimeout(() => {
+                            onRejected(this.result)
+                        })
+                    })
+                }
+
+                if (this.status === this.FULFILLED) {
+                    onFulfilled(this.result)
+                }
+
+                if (this.status === this.REJECTED) {
+                    onRejected(this.result)
+                }
+
+            }
+        }
+
+
+        // 学习的
         class MyPromise {
             PENDING = 'pending'
             FULFILLED = 'fulfilled'
