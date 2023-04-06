@@ -32,7 +32,10 @@
                 if (this.status === this.PENDING) {
                     this.status = this.FULFILLED
                     this.promiseValue = result
-                    this.resoleFun(this.onFulfilledCallbacks, result)
+                    // this.resoleFun(this.onFulfilledCallbacks, result)
+                    this.onFulfilledCallbacks.forEach(callback => {
+                        callback(result)
+                    })
                 }
 
             }
@@ -40,7 +43,10 @@
                 if (this.status === this.PENDING) {
                     this.status = this.REJECTED
                     this.promiseValue = reason
-                    this.resoleFun(this.onRejectedCallbacks, reason)
+                    // this.resoleFun(this.onRejectedCallbacks, reason)
+                    this.onRejectedCallbacks.forEach(callback => {
+                        callback(reason)
+                    })
                 }
 
             }
@@ -97,8 +103,15 @@
                 console.log('rejected:', reason)
             }
         )
-        console.log(3);
-
+        console.log(3)
+        promise1.then(value => {
+            console.log(5)
+            console.log('resolve5', value)
+        })
+        promise1.then(value => {
+            console.log(6)
+            console.log('resolve6', value)
+        })
     </script>
 
 </body>
