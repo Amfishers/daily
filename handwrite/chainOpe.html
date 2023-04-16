@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chain operation</title>
+</head>
+
+<body>
+
+    <script>
+        class Operator {
+            constructor(num) {
+                this.num = num
+            }
+
+            add (n) {
+                this.num = this.num + n
+                return this
+            }
+
+            minus (n) {
+                this.num = this.num - n
+                return this
+            }
+
+            multi (n) {
+                this.num = this.num * n
+                return this
+            }
+
+            division (n) {
+                this.num = this.num / n
+                console.log('this.num', this.num)
+                return this
+            }
+        }
+
+
+        const z = new Operator(1)
+
+        z.add(2).minus(2).multi(4).division(4)
+
+
+
+    </script>
+
+</body>
+
+</html>
